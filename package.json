@@ -1,7 +1,9 @@
 {
   "name": "vue-wheel",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
+  "description": "一个UI框架",
+  "keywords": ["Vue","UI"],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
