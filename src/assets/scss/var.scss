@@ -1,1 +1,16 @@
 $font-size: 14px;
+$button-height: 32px;
+$button-active-bg: #eee;
+$button-bg: #fff;
+$border-color-hover: #666;
+$border-color: #999;
+$border-radius: 4px;
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
