@@ -6,8 +6,11 @@
       y-button(icon="left") 上一页
       y-button(icon="right" iconPosition="right") 下一页
     y-row
-      y-col(span="2")
-      y-col(span="20" offset="2")
+      y-col(span="2") 1
+      y-col(span="20" offset="2") 2
+    y-row(gutter="20")
+      y-col(span="2") 1
+      y-col(span="22") 2
 </template>
 
 <script>
@@ -31,5 +34,6 @@ export default {
 <style lang="scss">
 #app {
   margin: 30px;
+  border: 1px solid #000;
 }
 </style>
