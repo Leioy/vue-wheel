@@ -11,6 +11,13 @@
     y-row(gutter="20")
       y-col(span="2") 1
       y-col(span="22") 2
+    y-row(justify="between")
+      y-col(span="6")
+        div(style="border:1px solid red;height:50px;") 1
+      y-col(span="6")
+        div(style="border:1px solid red;height:50px;") 2
+      y-col(span="6")
+        div(style="border:1px solid red;height:50px;") 3
 </template>
 
 <script>
