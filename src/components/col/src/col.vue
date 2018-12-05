@@ -1,5 +1,5 @@
 <template lang="pug">
-  .y-col(:class="[span && `col-${span}`]")
+  .y-col(:class="[span && `col-${span}`,offset && `offset-${offset}`]")
     slot
 </template>
 
@@ -8,6 +8,7 @@ export default {
   name: 'y-col',
   props: {
     span: [Number, String],
+    offset: [Number, String],
   },
 }
 </script>
@@ -22,6 +23,12 @@ export default {
     @for $i from 1 through 24 {
       &.#{$class-prefix}#{$i} {
         width: ($i / 24) * 100%;
+      }
+    }
+    $class-prefix: offset-;
+    @for $i from 1 through 24 {
+      &.#{$class-prefix}#{$i} {
+        margin-left: ($i / 24) * 100%;
       }
     }
   }

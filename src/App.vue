@@ -7,7 +7,7 @@
       y-button(icon="right" iconPosition="right") 下一页
     y-row
       y-col(span="2")
-      y-col(span="22")
+      y-col(span="20" offset="2")
 </template>
 
 <script>
