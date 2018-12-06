@@ -18,6 +18,11 @@
         div(style="border:1px solid red;height:50px;") 2
       y-col(span="6")
         div(style="border:1px solid red;height:50px;") 3
+    y-row
+      y-col(span="2" :pc="{span:2,offset:2}")
+        div(style="border:1px solid red") 1
+      y-col(span="22")
+        div(style="border:1px solid red") 2
 </template>
 
 <script>
