@@ -1,5 +1,5 @@
 <template lang="pug">
-  .y-toast(ref="toast")
+  .y-toast(ref="toast" :class="classObj")
     div(v-if="enableHtml" v-html="$slots.default[0]")
     slot(v-else)
     .line(ref="line")
@@ -12,7 +12,7 @@ export default {
   props: {
     autoClose: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     autoCloseDelay: {
       type: Number,
@@ -30,6 +30,18 @@ export default {
     enableHtml: {
       type: Boolean,
       default: false,
+    },
+    position: {
+      type: String,
+      default: 'top',
+      validator (val) {
+        return ['top', 'middle', 'bottom'].includes(val)
+      },
+    },
+  },
+  computed: {
+    classObj () {
+      return [`position-${this.position}`]
     },
   },
   mounted () {
@@ -66,17 +78,27 @@ export default {
   display: inline-flex;
   align-items: center;
   position: fixed;
-  top: 0;
   left: 50%;
   padding: 4px 16px;
   min-height: 40px;
   line-height: 1.8;
-  transform: translateX(-50%);
   font-size: 14px;
   color: #fff;
   background: rgba(0, 0, 0, .75);
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, .5);
   border-radius: 4px;
+  &.position-top {
+    top: 0;
+    transform: translateX(-50%);
+  }
+  &.position-middle {
+    top: 50%;
+    transform: translate(-50%,-50%);
+  }
+  &.position-bottom {
+    bottom: 0;
+    transform: translateX(-50%);
+  }
   .close {
     flex-shrink: 0;
   }
