@@ -43,7 +43,14 @@ export default {
   },
   methods: {
     handleClick () {
-      this.$toast('i\'m  toast')
+      this.$toast('文字', {
+        closeButton: {
+          text: '知道了',
+          callback: () => {
+            console.log('用户说他知道了')
+          },
+        },
+      })
     },
   },
 }
