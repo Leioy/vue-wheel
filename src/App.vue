@@ -43,14 +43,14 @@ export default {
   },
   methods: {
     handleClick () {
-      this.$toast('文字', {
+      this.$toast(`文字${parseInt(Math.random() * 100)}`, {
         closeButton: {
           text: '知道了',
           callback: () => {
             console.log('用户说他知道了')
           },
         },
-        position: 'bottom',
+        position: 'middle',
       })
     },
   },
