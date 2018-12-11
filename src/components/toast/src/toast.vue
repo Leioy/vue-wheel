@@ -63,6 +63,7 @@ export default {
     },
     close () {
       this.$el.remove()
+      this.$emit('close')
       this.$destroy()
     },
     handleClick () {
@@ -74,6 +75,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes slide-up {
+  0% { opacity: 0; transform: translateY(100%)}
+  100% { opacity: 1; transform: translateY(0%)}
+}
+@keyframes slide-down {
+  0% { opacity: 0; transform: translateY(-100%)}
+  100% { opacity: 1; transform: translateY(0%)}
+}
 .y-toast {
   display: inline-flex;
   align-items: center;
@@ -90,14 +103,17 @@ export default {
   &.position-top {
     top: 0;
     transform: translateX(-50%);
+    animation: slide-down 1s;
   }
   &.position-middle {
     top: 50%;
     transform: translate(-50%,-50%);
+    animation: fade-in 1s;
   }
   &.position-bottom {
     bottom: 0;
     transform: translateX(-50%);
+    animation: slide-up 1s;
   }
   .close {
     flex-shrink: 0;
