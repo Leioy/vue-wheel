@@ -1,9 +1,10 @@
 <template lang="pug">
-  .y-toast(ref="toast" :class="classObj")
-    div(v-if="enableHtml" v-html="$slots.default[0]")
-    slot(v-else)
-    .line(ref="line")
-    span(v-if="closeButton" @click="handleClick" class="close") {{closeButton.text}}
+  .y-toast(:class="classObj")
+    .y-toast__inner(ref="toast")
+      div(v-if="enableHtml" v-html="$slots.default[0]")
+      slot(v-else)
+      .line(ref="line")
+      span(v-if="closeButton" @click="handleClick" class="close") {{closeButton.text}}
 </template>
 
 <script>
@@ -88,32 +89,43 @@ export default {
   100% { opacity: 1; transform: translateY(0%)}
 }
 .y-toast {
-  display: inline-flex;
-  align-items: center;
   position: fixed;
   left: 50%;
-  padding: 4px 16px;
-  min-height: 40px;
-  line-height: 1.8;
-  font-size: 14px;
-  color: #fff;
-  background: rgba(0, 0, 0, .75);
-  box-shadow: 0 0 3px 0 rgba(0, 0, 0, .5);
-  border-radius: 4px;
+  transform: translateX(-50%);
+  &__inner {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 16px;
+    min-height: 40px;
+    line-height: 1.8;
+    font-size: 14px;
+    color: #fff;
+    background: rgba(0, 0, 0, .75);
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, .5);
+    border-radius: 4px;
+  }
   &.position-top {
     top: 0;
-    transform: translateX(-50%);
-    animation: slide-down 1s;
+    .y-toast__inner {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      animation: slide-down 1s;
+    }
   }
   &.position-middle {
     top: 50%;
     transform: translate(-50%,-50%);
-    animation: fade-in 1s;
+    .y-toast__inner {
+      animation: fade-in 1s;
+    }
   }
   &.position-bottom {
     bottom: 0;
-    transform: translateX(-50%);
-    animation: slide-up 1s;
+    .y-toast__inner {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      animation: slide-up 1s;
+    }
   }
   .close {
     flex-shrink: 0;
