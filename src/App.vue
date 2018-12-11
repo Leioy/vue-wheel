@@ -23,6 +23,7 @@
         div(style="border:1px solid red") 1
       y-col(span="22")
         div(style="border:1px solid red") 2
+    button(@click="handleClick") click
 </template>
 
 <script>
@@ -39,6 +40,11 @@ export default {
     YButtonGroup,
     YRow,
     YCol,
+  },
+  methods: {
+    handleClick () {
+      this.$toast('i\'m  toast')
+    },
   },
 }
 </script>
