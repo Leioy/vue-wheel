@@ -24,6 +24,10 @@
       y-col(span="22")
         div(style="border:1px solid red") 2
     button(@click="handleClick") click
+    y-collapse(style="marginTop:20px")
+      y-collapse-item(title="标题1") 内容1
+      y-collapse-item(title="标题2") 内容2
+      y-collapse-item(title="标题3") 内容3
 </template>
 
 <script>
@@ -32,6 +36,8 @@ import YButton from './components/button/src/button'
 import YButtonGroup from './components/button/src/button-group'
 import YRow from './components/row/src/row'
 import YCol from './components/col/src/col'
+import YCollapse from './components/collapse/src/collapse'
+import YCollapseItem from './components/collapse/src/collapse-item'
 export default {
   name: 'app',
   components: {
@@ -40,6 +46,8 @@ export default {
     YButtonGroup,
     YRow,
     YCol,
+    YCollapse,
+    YCollapseItem,
   },
   methods: {
     handleClick () {
@@ -60,6 +68,5 @@ export default {
 <style lang="scss">
 #app {
   margin: 30px;
-  border: 1px solid #000;
 }
 </style>
