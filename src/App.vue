@@ -24,7 +24,7 @@
       y-col(span="22")
         div(style="border:1px solid red") 2
     button(@click="handleClick") click
-    y-collapse(style="marginTop:20px")
+    y-collapse(style="marginTop:20px" v-model="value" accordion)
       y-collapse-item(title="标题1") 内容1
       y-collapse-item(title="标题2") 内容2
       y-collapse-item(title="标题3") 内容3
@@ -48,6 +48,12 @@ export default {
     YCol,
     YCollapse,
     YCollapseItem,
+  },
+  data () {
+    return {
+      value: ['标题1', '标题2'],
+      // value: '标题1',
+    }
   },
   methods: {
     handleClick () {

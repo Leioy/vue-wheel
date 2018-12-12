@@ -1,7 +1,7 @@
 <template lang="pug">
-  .y-collapse-item(:class="{active:open}" @click="open = !open")
+  .y-collapse-item(:class="{active:isActive}" @click="toggle")
     .y-collapse-header {{title}}
-    .y-collapse-content(v-show="open")
+    .y-collapse-content(v-show="isActive")
       slot
 </template>
 
@@ -16,8 +16,17 @@ export default {
   },
   data () {
     return {
-      open: false,
+      index: 0,
+      isActive: false,
     }
+  },
+  methods: {
+    toggle () {
+      this.$parent.toggle({
+        name: this.title,
+        isActive: this.isActive,
+      })
+    },
   },
 }
 </script>
