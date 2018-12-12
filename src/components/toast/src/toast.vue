@@ -12,12 +12,11 @@ export default {
   name: 'y-taost',
   props: {
     autoClose: {
-      type: Boolean,
-      default: false,
-    },
-    autoCloseDelay: {
-      type: Number,
-      default: 10,
+      type: [Boolean, Number],
+      default: 3,
+      validator (val) {
+        return val === false || typeof val === 'number'
+      },
     },
     closeButton: {
       type: Object,
@@ -59,7 +58,7 @@ export default {
       if (this.autoClose) {
         setTimeout(() => {
           this.close()
-        }, this.autoCloseDelay * 1000)
+        }, this.autoClose * 1000)
       }
     },
     close () {
