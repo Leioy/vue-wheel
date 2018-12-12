@@ -44,6 +44,7 @@ export default {
       if (this.accordion && activeKey.length > 1) {
         activeKey = [activeKey[0]]
       }
+      activeKey = activeKey.map(item => item.toString())
       return activeKey
     },
     toggle (data) {
