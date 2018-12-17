@@ -35,6 +35,11 @@ export default {
     this.navList = this.getNavList()
     this.updateNav()
   },
+  watch: {
+    activeKey () {
+      this.updateNav()
+    },
+  },
   methods: {
     getNavList () {
       return this.$children.filter(child => child.$options.name === 'y-tab-pane')
