@@ -17,7 +17,6 @@ export default {
   },
   data () {
     return {
-      currentName: this.name,
       show: true,
     }
   },

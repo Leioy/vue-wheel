@@ -3,9 +3,9 @@
     div(:class="`${prefix}-bar`")
       div(:class="`${prefix}-nav-scroll`")
         div(:class="`${prefix}-nav`" ref="nav")
-          div(:class="`${prefix}-underline`")
+          div(:class="barClass")
           div(:class="tabClass(tab)" v-for="(tab,index) in navList" :key="index" @click="handleTabChange(tab)") {{tab.label}}
-    div(:class="`${prefix}-content`")
+    div(:class="contentClass" :style="contentStyle")
       slot
 </template>
 
@@ -16,6 +16,10 @@ export default {
   props: {
     value: {
       type: [String, Number],
+    },
+    animated: {
+      type: Boolean,
+      default: true,
     },
   },
   data () {
@@ -29,6 +33,34 @@ export default {
   computed: {
     classes () {
       return [`${prefix}`]
+    },
+    barClass () {
+      return [
+        `${prefix}-underline`,
+        {
+          [`${prefix}-underline-animated`]: this.animated,
+        },
+      ]
+    },
+    contentClass () {
+      return [
+        `${prefix}-content`,
+        {
+          [`${prefix}-content-animated`]: this.animated,
+          [`${prefix}-content-no-animated`]: !this.animated,
+        },
+      ]
+    },
+    contentStyle () {
+      const index = this.getTabIndex(this.activeKey)
+      const p = index === 0 ? 0 : `-${index}00%`
+      let style
+      if (index > -1) {
+        style = {
+          transform: `translateX(${p})`,
+        }
+      }
+      return style
     },
   },
   mounted () {
@@ -73,7 +105,7 @@ export default {
     updateContent () {
       const tabs = this.getNavList()
       tabs.forEach(tab => {
-        tab.show = this.activeKey === tab.currentName
+        tab.show = (this.activeKey === tab.name) || this.animated
       })
     },
     updateNav () {
@@ -97,6 +129,7 @@ export default {
 
 <style lang="scss" scoped>
 .y-tabs {
+  overflow: hidden;
   &-bar {
     border-bottom: 1px solid #dcdee2;
     margin-bottom: 16px;
@@ -111,6 +144,9 @@ export default {
     width: 100%;
     background: #2d8cf0;
     bottom: -1px;
+    &.y-tabs-underline-animated {
+      transition: transform .3s ease-in-out;
+    }
   }
   &-tab {
     padding: 8px 16px;
@@ -123,7 +159,12 @@ export default {
   }
   &-content {
     display: flex;
-    overflow: hidden;
+    &.y-tabs-content-animated {
+      transition: transform .3s ease-in-out;
+    }
+    &.y-tabs-content-no-animated {
+      transform: none !important;
+    }
   }
 }
 
