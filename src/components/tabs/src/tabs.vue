@@ -71,6 +71,9 @@ export default {
     activeKey () {
       this.updateNav()
     },
+    value (val) {
+      this.activeKey = val
+    },
   },
   methods: {
     getNavList () {
@@ -114,6 +117,8 @@ export default {
     },
     handleTabChange (item) {
       this.activeKey = item.name
+      this.$emit('input', item.name)
+      this.$emit('on-change', item.name)
     },
     tabClass (item) {
       return [
