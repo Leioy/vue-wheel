@@ -28,10 +28,11 @@
     //-   y-collapse-item(title="1") 内容1
     //-   y-collapse-item(title="2") 内容2
     //-   y-collapse-item(title="3") 内容3
-    y-tabs(value="name1")
-      y-tab-pane(label="标题1" name="name1")  标签1的内容
-      y-tab-pane(label="标题2" name="name2")  标签2的内容
-      y-tab-pane(label="标题3" name="name3")  标签3的内容
+    //- y-tabs(value="name1")
+    //-   y-tab-pane(label="标题1" name="name1")  标签1的内容
+    //-   y-tab-pane(label="标题2" name="name2")  标签2的内容
+    //-   y-tab-pane(label="标题3" name="name3")  标签3的内容
+    y-cascader(:data-source="source")
 </template>
 
 <script>
@@ -44,6 +45,7 @@ import YCollapse from './components/collapse/src/collapse'
 import YCollapseItem from './components/collapse/src/collapse-item'
 import YTabs from './components/tabs/src/tabs'
 import YTabPane from './components/tabs/src/pane'
+import YCascader from './components/cascader/src/cascader'
 export default {
   name: 'app',
   components: {
@@ -56,11 +58,55 @@ export default {
     YCollapseItem,
     YTabs,
     YTabPane,
+    YCascader,
   },
   data () {
     return {
       value: [1, 2],
       // value: '标题1',
+      source: [
+        {
+          name: '湖北',
+          children: [
+            {
+              name: '荆门',
+              children: [
+                { name: '东宝区' },
+                { name: '掇刀区' },
+              ],
+            },
+            {
+              name: '荆州',
+            },
+            {
+              name: '武汉',
+              children: [
+                { name: '江汉区' },
+                { name: '光谷区' },
+              ],
+            },
+          ],
+        },
+        {
+          name: '广东',
+          children: [
+            {
+              name: '深圳',
+              children: [
+                { name: '南山区' },
+                { name: '宝安区' },
+              ],
+            },
+            {
+              name: '广州',
+              children: [
+                { name: '天河区' },
+                { name: '花都区' },
+              ],
+            },
+          ],
+        },
+      ],
     }
   },
   methods: {

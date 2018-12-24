@@ -1,10 +1,17 @@
-$font-size: 14px;
-$button-height: 32px;
-$button-active-bg: #eee;
-$button-bg: #fff;
 $border-color-hover: #666;
 $border-color: #999;
+$border-color-light: lighten($border-color,25%);
 $border-radius: 4px;
+$button-active-bg: #eee;
+$button-bg: #fff;
+$button-height: 32px;
+$button-height: 32px;
+$font-size: 14px;
+$input-height: 32px;
+
+%box-shadow {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+} 
 
 @keyframes spin {
   0% {
