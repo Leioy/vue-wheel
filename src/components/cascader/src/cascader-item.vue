@@ -1,7 +1,7 @@
 <template>
   <div :class="`${prefix}`">
     <div :class="`${prefix}-left`">
-      <div :class="`${prefix}-label`" v-for="(item,index) in items" :key="index" @click="leftSelected = item">
+      <div :class="labelClass(item)" v-for="(item,index) in items" :key="index" @click="clickLabel(item)">
         {{item.name}}
         <span v-if="item.children">
           <y-icon name="right" :class="`${prefix}-icon`"></y-icon>
@@ -9,7 +9,7 @@
       </div>
     </div>
     <div :class="`${prefix}-right`" v-if="rightItems">
-      <y-cascader-item :items="rightItems"></y-cascader-item>
+      <y-cascader-item :items="rightItems" :level="level + 1" @update:selected="onUpdateSelected" :selected="selected"></y-cascader-item>
     </div>
   </div>
 </template>
@@ -23,6 +23,14 @@ export default {
     items: {
       type: Array,
     },
+    selected: {
+      type: Array,
+      default: () => [],
+    },
+    level: {
+      type: Number,
+      default: 0,
+    },
   },
   components: {
     YIcon,
@@ -35,11 +43,29 @@ export default {
   },
   computed: {
     rightItems () {
-      if (this.leftSelected && this.leftSelected.children) {
-        return this.leftSelected.children
+      const currentSelected = this.selected[this.level]
+      if (currentSelected && currentSelected.children) {
+        return currentSelected.children
       } else {
         return null
       }
+    },
+  },
+  methods: {
+    labelClass (item) {
+      return [
+        `${prefix}-label`,
+        { 'active': this.selected.findIndex(s => item.name === s.name) > -1 },
+      ]
+    },
+    clickLabel (item) {
+      let copy = JSON.parse(JSON.stringify(this.selected))
+      copy[this.level] = item
+      copy.splice(this.level + 1)
+      this.$emit('update:selected', copy)
+    },
+    onUpdateSelected (newSelected) {
+      this.$emit('update:selected', newSelected)
     },
   },
 }
@@ -60,6 +86,10 @@ export default {
     padding: .3em 1em;
     display: flex;
     align-items: center;
+    &.active {
+      background: #f3f3f3;
+      color: #2d8cf0;
+    }
   }
   &-icon {
     margin-left: 1em;
