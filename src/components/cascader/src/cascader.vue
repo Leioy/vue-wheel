@@ -13,7 +13,7 @@
         <y-icon name="delete"></y-icon>
       </div>
       <div :class="`${prefix}-popover`" v-if="popoverVisible">
-      <y-cascader-item :items="dataSource" :selected="selected" @update:selected="onUpdate"></y-cascader-item>
+      <y-cascader-item :items="dataSource" :selected="selected" @update:selected="onUpdate" @close="closePopover"></y-cascader-item>
       </div>
     </div>
   </div>
@@ -68,11 +68,14 @@ export default {
     },
     listenToDocument (e) {
       if (e.target.contains(this.$el)) {
-        this.popoverVisible = false
+        this.closePopover()
       }
     },
     clearSelected () {
       this.$emit('update:selected', [])
+      this.closePopover()
+    },
+    closePopover () {
       this.popoverVisible = false
     },
   },

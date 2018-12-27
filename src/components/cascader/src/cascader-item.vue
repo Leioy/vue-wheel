@@ -9,7 +9,7 @@
       </div>
     </div>
     <div :class="`${prefix}-right`" v-if="rightItems">
-      <y-cascader-item :items="rightItems" :level="level + 1" @update:selected="onUpdateSelected" :selected="selected"></y-cascader-item>
+      <y-cascader-item :items="rightItems" :level="level + 1" @update:selected="onUpdateSelected" :selected="selected" @close="close"></y-cascader-item>
     </div>
   </div>
 </template>
@@ -63,6 +63,12 @@ export default {
       copy[this.level] = item
       copy.splice(this.level + 1)
       this.$emit('update:selected', copy)
+      if (!item.children) {
+        this.$emit('close')
+      }
+    },
+    close () {
+      this.$emit('close')
     },
     onUpdateSelected (newSelected) {
       this.$emit('update:selected', newSelected)
