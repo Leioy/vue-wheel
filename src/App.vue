@@ -33,7 +33,7 @@
     //-   y-tab-pane(label="标题2" name="name2")  标签2的内容
     //-   y-tab-pane(label="标题3" name="name3")  标签3的内容
     //- p {{selected}}
-    y-cascader(:data-source="source" :selected.sync="selected")
+    y-cascader(:data="source")
 </template>
 
 <script>
@@ -67,42 +67,48 @@ export default {
       // value: '标题1',
       source: [
         {
-          name: '湖北',
+          value: 'beijing',
+          label: '北京',
           children: [
             {
-              name: '荆门',
-              children: [
-                { name: '东宝区' },
-                { name: '掇刀区' },
-              ],
+              value: 'gugong',
+              label: '故宫',
             },
             {
-              name: '荆州',
+              value: 'tiantan',
+              label: '天坛',
             },
             {
-              name: '武汉',
-              children: [
-                { name: '江汉区' },
-                { name: '光谷区' },
-              ],
+              value: 'wangfujing',
+              label: '王府井',
             },
           ],
-        },
-        {
-          name: '广东',
+        }, {
+          value: 'jiangsu',
+          label: '江苏',
           children: [
             {
-              name: '深圳',
+              value: 'nanjing',
+              label: '南京',
               children: [
-                { name: '南山区' },
-                { name: '宝安区' },
+                {
+                  value: 'fuzimiao',
+                  label: '夫子庙',
+                },
               ],
             },
             {
-              name: '广州',
+              value: 'suzhou',
+              label: '苏州',
               children: [
-                { name: '天河区' },
-                { name: '花都区' },
+                {
+                  value: 'zhuozhengyuan',
+                  label: '拙政园',
+                },
+                {
+                  value: 'shizilin',
+                  label: '狮子林',
+                },
               ],
             },
           ],

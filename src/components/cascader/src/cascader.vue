@@ -1,82 +1,58 @@
 <template>
-  <div :class="`${prefix}`">
-    <div :class="`${prefix}-wrapper`">
-      <input type="text"
-      :class="`${prefix}-trigger`"
-      @click="popoverVisible = !popoverVisible"
-      :value="selectedValue"
-      readonly="readonly"
-      autocomplete="off"
-      spellcheck="false"
-      :placeholder="placeholder">
-      <div :class="`${prefix}-icon`" v-if="selected.length" @click="clearSelected">
-        <y-icon name="delete"></y-icon>
-      </div>
-      <div :class="`${prefix}-popover`" v-if="popoverVisible">
-      <y-cascader-item :items="dataSource" :selected="selected" @update:selected="onUpdate" @close="closePopover"></y-cascader-item>
-      </div>
+  <div :class="classes">
+    <div :class="`${prefix}-wrapper`" @click="toggle">
+      <slot>
+        <input
+          type="text"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="请选择"
+          readonly="readonly"
+          :class="`${prefix}-trigger`"
+        >
+      </slot>
+      <y-icon name="down" :class="`${prefix}-arrow`"></y-icon>
+    </div>
+    <div :class="`${prefix}-popover`" v-if="visible">
+      <y-cascader-pane :data="data"></y-cascader-pane>
     </div>
   </div>
 </template>
 
 <script>
+import YCascaderPane from './cascader-pane'
 import YIcon from '@/components/icon/src/icon'
-import YCascaderItem from './cascader-item'
 const prefix = 'y-cascader'
 export default {
-  name: 'y-cascader',
   data () {
     return {
       prefix,
-      popoverVisible: false,
+      visible: false,
     }
   },
   props: {
-    dataSource: {
-      type: Array,
-    },
-    selected: {
+    data: {
       type: Array,
       default: () => [],
     },
-    placeholder: {
-      type: String,
-      default: '请选择',
-    },
   },
   components: {
-    YCascaderItem,
+    YCascaderPane,
     YIcon,
   },
   computed: {
-    selectedValue () {
-      return this.selected.map(item => item.name).join(' / ')
-    },
-  },
-  watch: {
-    popoverVisible (val) {
-      if (val) {
-        document.addEventListener('click', this.listenToDocument)
-      } else {
-        document.removeEventListener('click', this.listenToDocument)
-      }
+    classes () {
+      return [
+        `${prefix}`,
+        {
+          [`${prefix}-visible`]: this.visible,
+        },
+      ]
     },
   },
   methods: {
-    onUpdate (newSelected) {
-      this.$emit('update:selected', newSelected)
-    },
-    listenToDocument (e) {
-      if (e.target.contains(this.$el)) {
-        this.closePopover()
-      }
-    },
-    clearSelected () {
-      this.$emit('update:selected', [])
-      this.closePopover()
-    },
-    closePopover () {
-      this.popoverVisible = false
+    toggle () {
+      this.visible = !this.visible
     },
   },
 }
@@ -85,40 +61,39 @@ export default {
 <style lang="scss" scoped>
 @import '~@/assets/scss/var';
 .y-cascader {
+  position: relative;
+  &-visible {
+    .y-cascader-arrow {
+      transform: rotate(180deg);
+    }
+  }
   &-wrapper {
     display: inline-block;
     position: relative;
   }
   &-trigger {
-    display: flex;
-    align-items: center;
     height: $input-height;
     padding: 0 16px;
     outline: none;
     border: 1px solid $border-color;
     border-radius: $border-radius;
-    cursor: pointer;
     color: $input-color;
+    cursor: pointer;
     &::placeholder {
       color: #dcdee2;
     }
   }
-  &-icon {
+  &-arrow {
+    font-size: 12px;
     position: absolute;
     top: 50%;
     right: 8px;
-    transform: translateY(-50%);
-    font-size: 12px;
-    cursor: pointer;
+    margin-top: -6px;
   }
   &-popover {
     position: absolute;
     top: calc(100% + 5px);
     left: 0;
-    @extend %box-shadow;
-    font-size: 12px;
-    color: $input-color;
-    white-space: nowrap;
   }
 }
 </style>
