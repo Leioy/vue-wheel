@@ -33,7 +33,7 @@
     //-   y-tab-pane(label="标题2" name="name2")  标签2的内容
     //-   y-tab-pane(label="标题3" name="name3")  标签3的内容
     //- p {{selected}}
-    y-cascader(:data="source")
+    y-cascader(:data-source="source" :selected.sync="selected")
 </template>
 
 <script>
@@ -67,48 +67,42 @@ export default {
       // value: '标题1',
       source: [
         {
-          value: 'beijing',
-          label: '北京',
+          name: '湖北',
           children: [
             {
-              value: 'gugong',
-              label: '故宫',
-            },
-            {
-              value: 'tiantan',
-              label: '天坛',
-            },
-            {
-              value: 'wangfujing',
-              label: '王府井',
-            },
-          ],
-        }, {
-          value: 'jiangsu',
-          label: '江苏',
-          children: [
-            {
-              value: 'nanjing',
-              label: '南京',
+              name: '荆门',
               children: [
-                {
-                  value: 'fuzimiao',
-                  label: '夫子庙',
-                },
+                { name: '东宝区' },
+                { name: '掇刀区' },
               ],
             },
             {
-              value: 'suzhou',
-              label: '苏州',
+              name: '荆州',
+            },
+            {
+              name: '武汉',
               children: [
-                {
-                  value: 'zhuozhengyuan',
-                  label: '拙政园',
-                },
-                {
-                  value: 'shizilin',
-                  label: '狮子林',
-                },
+                { name: '江汉区' },
+                { name: '光谷区' },
+              ],
+            },
+          ],
+        },
+        {
+          name: '广东',
+          children: [
+            {
+              name: '深圳',
+              children: [
+                { name: '南山区' },
+                { name: '宝安区' },
+              ],
+            },
+            {
+              name: '广州',
+              children: [
+                { name: '天河区' },
+                { name: '花都区' },
               ],
             },
           ],
