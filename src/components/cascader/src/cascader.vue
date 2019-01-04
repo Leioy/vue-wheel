@@ -1,5 +1,5 @@
 <template>
-  <div :class="`${prefix}`">
+  <div :class="classes">
     <div :class="`${prefix}-wrapper`">
       <input type="text"
       :class="`${prefix}-trigger`"
@@ -9,8 +9,9 @@
       autocomplete="off"
       spellcheck="false"
       :placeholder="placeholder">
-      <div :class="`${prefix}-icon`" v-if="selected.length" @click="clearSelected">
-        <y-icon name="delete"></y-icon>
+      <div :class="`${prefix}-icon`">
+        <y-icon name="delete" @click.native="clearSelected" v-if="selected.length"></y-icon>
+        <y-icon name="down" v-else :class="`${prefix}-icon_down`"></y-icon>
       </div>
       <div :class="`${prefix}-popover`" v-if="popoverVisible">
       <y-cascader-item :items="dataSource" :selected="selected" @update:selected="onUpdate" @close="closePopover"></y-cascader-item>
@@ -49,8 +50,17 @@ export default {
     YIcon,
   },
   computed: {
+    classes () {
+      return [
+        `${this.prefix}`,
+        {
+          [`${this.prefix}-active`]: this.popoverVisible,
+        },
+      ]
+    },
     selectedValue () {
-      return this.selected.map(item => item.name).join(' / ')
+      console.log(this.selected)
+      return this.selected.map(item => item.label).join(' / ')
     },
   },
   watch: {
@@ -85,11 +95,16 @@ export default {
 <style lang="scss" scoped>
 @import '~@/assets/scss/var';
 .y-cascader {
+  &-active {
+    .y-cascader-icon_down {
+      transform: rotate(180deg);
+    }
+  }
   &-wrapper {
-    display: inline-block;
     position: relative;
   }
   &-trigger {
+    width: 100%;
     display: flex;
     align-items: center;
     height: $input-height;
@@ -110,6 +125,9 @@ export default {
     transform: translateY(-50%);
     font-size: 12px;
     cursor: pointer;
+    &_down {
+      transition: all .2s ease-in-out;
+    }
   }
   &-popover {
     position: absolute;

@@ -2,7 +2,7 @@
   <div :class="`${prefix}`">
     <div :class="`${prefix}-left`">
       <div :class="labelClass(item)" v-for="(item,index) in items" :key="index" @click="clickLabel(item)">
-        {{item.name}}
+        {{item.label}}
         <span v-if="item.children">
           <y-icon name="right" :class="`${prefix}-icon`"></y-icon>
         </span>
@@ -55,7 +55,7 @@ export default {
     labelClass (item) {
       return [
         `${prefix}-label`,
-        { 'active': this.selected.findIndex(s => item.name === s.name) > -1 },
+        { 'active': this.selected.findIndex(s => item.value === s.value) > -1 },
       ]
     },
     clickLabel (item) {
@@ -85,12 +85,15 @@ export default {
   align-items: flex-start;
   justify-content: flex-start;
   &-left {
+    min-width: 100px;
     height: 100%;
     padding: .3em 0;
+    border-right: 1px solid #e8eaec;
   }
   &-label {
-    padding: .3em 1em;
+    padding: .5em 1em;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     &.active {
       background: #f3f3f3;
@@ -102,8 +105,8 @@ export default {
     transform: scale(.6);
   }
   &-right {
+    min-width: 100px;
     height: 100%;
-    border-left: 1px solid $border-color-light;
   }
 }
 </style>
