@@ -33,7 +33,7 @@
     //-   y-tab-pane(label="标题2" name="name2")  标签2的内容
     //-   y-tab-pane(label="标题3" name="name3")  标签3的内容
     //- p {{selected}}
-    y-cascader(:data-source="data" :selected.sync="selected")
+    y-cascader(:data="source")
 </template>
 
 <script>
@@ -65,7 +65,7 @@ export default {
     return {
       value: [1, 2],
       // value: '标题1',
-      data: [
+      source: [
         {
           value: 'beijing',
           label: '北京',

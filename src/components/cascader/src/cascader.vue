@@ -1,102 +1,133 @@
 <template>
   <div :class="classes">
-    <div :class="`${prefix}-wrapper`">
-      <input type="text"
-      :class="`${prefix}-trigger`"
-      @click="popoverVisible = !popoverVisible"
-      :value="selectedValue"
-      readonly="readonly"
-      autocomplete="off"
-      spellcheck="false"
-      :placeholder="placeholder">
-      <div :class="`${prefix}-icon`">
-        <y-icon name="delete" @click.native="clearSelected" v-if="selected.length"></y-icon>
-        <y-icon name="down" v-else :class="`${prefix}-icon_down`"></y-icon>
-      </div>
-      <div :class="`${prefix}-popover`" v-if="popoverVisible">
-      <y-cascader-item :items="dataSource" :selected="selected" @update:selected="onUpdate" @close="closePopover"></y-cascader-item>
-      </div>
+    <div :class="`${prefix}-wrapper`" @click="toggle">
+      <slot>
+        <input
+          type="text"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="请选择"
+          readonly="readonly"
+          :class="`${prefix}-trigger`"
+          :value="selectedLabel"
+        />
+      </slot>
+      <y-icon name="down" :class="`${prefix}-arrow`"></y-icon>
+      <y-icon
+        name="delete"
+        :class="`${prefix}-arrow`"
+        v-show="isCloseIconVisible"
+        @click.native.stop="clearSelect"
+      ></y-icon>
+    </div>
+    <div :class="`${prefix}-popover`" v-show="visible">
+      <y-cascader-pane :data="data"></y-cascader-pane>
     </div>
   </div>
 </template>
 
 <script>
+import YCascaderPane from './cascader-pane'
 import YIcon from '@/components/icon/src/icon'
-import YCascaderItem from './cascader-item'
+import Emitter from '@/mixins/emitter'
 const prefix = 'y-cascader'
 export default {
   name: 'y-cascader',
+  mixins: [Emitter],
   data () {
     return {
       prefix,
-      popoverVisible: false,
+      visible: false,
+      currentValue: this.value,
+      selected: [],
+      // 临时选中项
+      tempSelected: [],
     }
   },
   props: {
-    dataSource: {
-      type: Array,
-    },
-    selected: {
+    data: {
       type: Array,
       default: () => [],
     },
-    placeholder: {
-      type: String,
-      default: '请选择',
+    value: {
+      type: Array,
+      dafault: () => [],
     },
   },
   components: {
-    YCascaderItem,
+    YCascaderPane,
     YIcon,
   },
   computed: {
     classes () {
       return [
-        `${this.prefix}`,
+        `${prefix}`,
         {
-          [`${this.prefix}-active`]: this.popoverVisible,
+          [`${prefix}-visible`]: this.visible,
+          [`${prefix}-show-clear`]: this.isCloseIconVisible,
         },
       ]
     },
-    selectedValue () {
-      console.log(this.selected)
+    selectedLabel () {
       return this.selected.map(item => item.label).join(' / ')
     },
-  },
-  watch: {
-    popoverVisible (val) {
-      if (val) {
-        document.addEventListener('click', this.listenToDocument)
-      } else {
-        document.removeEventListener('click', this.listenToDocument)
-      }
+    isCloseIconVisible () {
+      return this.currentValue && this.currentValue.length
     },
   },
   methods: {
-    onUpdate (newSelected) {
-      this.$emit('update:selected', newSelected)
+    toggle () {
+      this.visible = !this.visible
     },
-    listenToDocument (e) {
-      if (e.target.contains(this.$el)) {
-        this.closePopover()
+    handleClose () {
+      this.visible = false
+    },
+    updateResult (result) {
+      this.tempSelected = result
+    },
+    clearSelect () {
+      this.currentValue = this.selected = this.tempSelected = []
+      this.handleClose()
+      this.broadcast('y-cascader-pane', 'on-clear')
+    },
+  },
+  created () {
+    this.$on('on-result-change', params => {
+      const { lastValue } = params
+      if (lastValue) {
+        this.selected = this.tempSelected
+        let newVal = []
+        this.selected.forEach(item => {
+          newVal.push(item.value)
+        })
+        this.currentValue = newVal
+        this.handleClose()
       }
-    },
-    clearSelected () {
-      this.$emit('update:selected', [])
-      this.closePopover()
-    },
-    closePopover () {
-      this.popoverVisible = false
-    },
+    })
   },
 }
 </script>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/var';
+@import "~@/assets/scss/var";
 .y-cascader {
-  &-active {
-    .y-cascader-icon_down {
+  position: relative;
+  .y-cascader-arrow:last-of-type {
+    display: none;
+    cursor: pointer;
+  }
+  &:hover {
+    .y-cascader-arrow:last-of-type {
+      display: inline-flex;
+    }
+  }
+  &-show-clear:hover {
+    .y-cascader-arrow:first-of-type {
+      display: none;
+    }
+  }
+  &-visible {
+    .y-cascader-arrow:first-of-type {
       transform: rotate(180deg);
     }
   }
@@ -105,38 +136,30 @@ export default {
   }
   &-trigger {
     width: 100%;
-    display: flex;
-    align-items: center;
     height: $input-height;
     padding: 0 16px;
     outline: none;
     border: 1px solid $border-color;
     border-radius: $border-radius;
-    cursor: pointer;
     color: $input-color;
+    cursor: pointer;
     &::placeholder {
       color: #dcdee2;
     }
   }
-  &-icon {
+  &-arrow {
+    font-size: 12px;
     position: absolute;
     top: 50%;
     right: 8px;
-    transform: translateY(-50%);
-    font-size: 12px;
-    cursor: pointer;
-    &_down {
-      transition: all .2s ease-in-out;
-    }
+    margin-top: -6px;
+    transition: all 0.2s ease-in-out;
   }
   &-popover {
     position: absolute;
     top: calc(100% + 5px);
     left: 0;
     @extend %box-shadow;
-    font-size: 12px;
-    color: $input-color;
-    white-space: nowrap;
   }
 }
 </style>
