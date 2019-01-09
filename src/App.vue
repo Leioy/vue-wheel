@@ -33,7 +33,7 @@
     //-   y-tab-pane(label="标题2" name="name2")  标签2的内容
     //-   y-tab-pane(label="标题3" name="name3")  标签3的内容
     //- p {{selected}}
-    y-cascader(:data="source")
+    y-cascader(:data="source" v-model="selected")
 </template>
 
 <script>
@@ -114,7 +114,7 @@ export default {
           ],
         },
       ],
-      selected: [],
+      selected: ['beijing', 'gugong'],
     }
   },
   methods: {

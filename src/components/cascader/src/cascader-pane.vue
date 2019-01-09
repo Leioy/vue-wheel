@@ -83,6 +83,23 @@ export default {
       this.sublist = []
       this.tempItem = {}
     })
+    this.$on('on-find-selected', params => {
+      const val = params.value
+      const value = [...val]
+      value.forEach(item => {
+        this.data.forEach(i => {
+          if (item === i.value) {
+            this.handleClickItem(i)
+            value.splice(0, 1)
+            this.$nextTick(() => {
+              this.broadcast('y-cascader-pane', 'on-find-selected', {
+                value: value,
+              })
+            })
+          }
+        })
+      })
+    })
   },
 }
 </script>

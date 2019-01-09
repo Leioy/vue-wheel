@@ -90,6 +90,11 @@ export default {
       this.handleClose()
       this.broadcast('y-cascader-pane', 'on-clear')
     },
+    updateSelected () {
+      this.broadcast('y-cascader-pane', 'on-find-selected', {
+        value: this.currentValue,
+      })
+    },
   },
   created () {
     this.$on('on-result-change', params => {
@@ -104,6 +109,14 @@ export default {
         this.handleClose()
       }
     })
+  },
+  mounted () {
+    this.updateSelected()
+  },
+  watch: {
+    currentValue () {
+      this.$emit('input', this.currentValue)
+    },
   },
 }
 </script>
