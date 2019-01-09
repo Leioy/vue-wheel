@@ -95,17 +95,24 @@ export default {
         value: this.currentValue,
       })
     },
+    emitValue (val, oldVal) {
+      if (JSON.stringify(val) !== oldVal) {
+        this.$emit('on-change', this.currentValue, JSON.parse(JSON.stringify(this.selected)))
+      }
+    },
   },
   created () {
     this.$on('on-result-change', params => {
       const { lastValue } = params
       if (lastValue) {
+        const oldVal = JSON.stringify(this.currentValue)
         this.selected = this.tempSelected
         let newVal = []
         this.selected.forEach(item => {
           newVal.push(item.value)
         })
         this.currentValue = newVal
+        this.emitValue(this.currentValue, oldVal)
         this.handleClose()
       }
     })
