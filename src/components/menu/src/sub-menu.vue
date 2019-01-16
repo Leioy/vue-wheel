@@ -1,17 +1,20 @@
 <template>
-  <li :class="classes">
+  <li :class="classes" @mouseenter="handleEnter" @mouseleave="handleLeave">
     <div :class="`${prefix}-title`">
       <slot name="title"></slot>
     </div>
-    <div :class="`${prefix}-popover`">
+    <div :class="`${prefix}-popover`" v-show="menuVisible">
       <slot></slot>
     </div>
   </li>
 </template>
 
 <script>
+import Emitter from '../../../mixins/emitter.js'
 const prefix = 'y-sub-menu'
 export default {
+  name: 'y-sub-menu',
+  mixins: [Emitter],
   props: {
     name: {
       type: String,
@@ -21,14 +24,42 @@ export default {
   data () {
     return {
       prefix,
+      menuVisible: false,
+      active: false,
     }
   },
   computed: {
     classes () {
       return [
         `${this.prefix}`,
+        {
+          [`${this.prefix}-active`]: this.active,
+        },
       ]
     },
+  },
+  methods: {
+    handleEnter () {
+      clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        this.menuVisible = true
+      }, 250)
+    },
+    handleLeave () {
+      clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        this.menuVisible = false
+      }, 150)
+    },
+  },
+  mounted () {
+    this.$on('on-item-select', name => {
+      this.menuVisible = false
+      this.dispatch('y-menu', 'on-item-select', name)
+    })
+    this.$on('on-update-active-name', status => {
+      this.active = status
+    })
   },
 }
 </script>
@@ -40,8 +71,13 @@ export default {
   height: inherit;
   line-height: inherit;
   position: relative;
-  border-bottom: 2px solid #2d8cf0;
   z-index: 1;
+  &:hover {
+    border-bottom: 2px solid #2d8cf0;
+  }
+  &-active {
+    border-bottom: 2px solid #2d8cf0;
+  }
   &-popover {
     min-width: 100%;
     position: absolute;
@@ -52,6 +88,12 @@ export default {
       padding: 8px 16px;
       line-height: normal;
       border-bottom: none;
+      &:hover {
+        background: #f3f3f3;
+      }
+      &-active {
+        color: #2d8cf0;
+      }
     }
   }
 }

@@ -3,12 +3,15 @@
 </template>
 
 <script>
+import Emitter from '../../../mixins/emitter.js'
 const prefix = 'y-menu'
 export default {
   name: 'y-menu',
+  mixins: [Emitter],
   data () {
     return {
       prefix,
+      currentName: this.activeName,
     }
   },
   props: {
@@ -21,6 +24,23 @@ export default {
       return [
         `${this.prefix}`,
       ]
+    },
+  },
+  methods: {
+    updateActiveName () {
+      this.broadcast('y-sub-menu', 'on-update-active-name', false)
+      this.broadcast('y-menu-item', 'on-update-active-name', this.currentName)
+    },
+  },
+  mounted () {
+    this.updateActiveName()
+    this.$on('on-item-select', name => {
+      this.currentName = name
+    })
+  },
+  watch: {
+    currentName () {
+      this.updateActiveName()
     },
   },
 }
