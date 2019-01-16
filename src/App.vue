@@ -33,7 +33,15 @@
     //-   y-tab-pane(label="标题2" name="name2")  标签2的内容
     //-   y-tab-pane(label="标题3" name="name3")  标签3的内容
     //- p {{selected}}
-    y-cascader(:data="source" v-model="selected" @on-change="fn")
+    //- y-cascader(:data="source" v-model="selected" @on-change="fn")
+    y-menu(active-name="home")
+      y-menu-item(name="home") 首页
+      y-menu-item(name="about") 关于
+      y-sub-menu(name="contacts")
+        template(slot="title") 联系方式
+        y-menu-item(name="phone") 手机
+        y-menu-item(name="wechat")  微信
+        y-menu-item(name="qq")  QQ
 </template>
 
 <script>
@@ -47,6 +55,9 @@ import YCollapseItem from './components/collapse/src/collapse-item'
 import YTabs from './components/tabs/src/tabs'
 import YTabPane from './components/tabs/src/pane'
 import YCascader from './components/cascader/src/cascader'
+import YMenu from './components/menu/src/menu'
+import YMenuItem from './components/menu/src/menu-item'
+import YSubMenu from './components/menu/src/sub-menu'
 export default {
   name: 'app',
   components: {
@@ -60,6 +71,9 @@ export default {
     YTabs,
     YTabPane,
     YCascader,
+    YMenu,
+    YMenuItem,
+    YSubMenu,
   },
   data () {
     return {
