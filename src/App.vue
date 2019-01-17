@@ -34,7 +34,7 @@
     //-   y-tab-pane(label="标题3" name="name3")  标签3的内容
     //- p {{selected}}
     //- y-cascader(:data="source" v-model="selected" @on-change="fn")
-    y-menu(active-name="home")
+    y-menu(active-name="home" @on-select="handleMenuSelect")
       y-menu-item(name="home") 首页
       y-menu-item(name="about") 关于
       y-sub-menu(name="contacts")
@@ -132,6 +132,9 @@ export default {
     }
   },
   methods: {
+    handleMenuSelect (val) {
+      console.log('val', val)
+    },
     fn (val, val2) {
       console.log(val)
       console.log(val2)

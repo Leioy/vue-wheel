@@ -36,6 +36,7 @@ export default {
     this.updateActiveName()
     this.$on('on-item-select', name => {
       this.currentName = name
+      this.$emit('on-select', name)
     })
   },
   watch: {
@@ -52,6 +53,7 @@ export default {
   height: 60px;
   line-height: 60px;
   position: relative;
+  color: #515a6e;
   &::after {
     content: '';
     display: block;
