@@ -62,6 +62,7 @@ export default {
   padding: 0 20px;
   white-space: nowrap;
   z-index: 1;
+  cursor: pointer;
   &-active {
     z-index: 1;
     border-bottom: 2px solid #2d8cf0;

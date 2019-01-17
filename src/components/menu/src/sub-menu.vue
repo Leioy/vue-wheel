@@ -72,6 +72,9 @@ export default {
   line-height: inherit;
   position: relative;
   z-index: 1;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all .2s ease-in-out;
   &:hover {
     border-bottom: 2px solid #2d8cf0;
   }
@@ -81,8 +84,9 @@ export default {
   &-popover {
     min-width: 100%;
     position: absolute;
-    top: calc(100% + 5px);
+    top: 100%;
     left: 0;
+    margin-top: 5px;
     @extend %box-shadow;
     .y-menu-item {
       padding: 8px 16px;
