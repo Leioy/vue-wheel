@@ -22,10 +22,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-  .y-tabs-pane {
-    width: 100%;
-    flex-shrink: 0;
-  }
-</style>

@@ -103,20 +103,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-@import "~@/assets/scss/var";
-.y-cascader-pane {
-  min-width: 100px;
-  height: 180px;
-  padding: 5px 0;
-  white-space: nowrap;
-  overflow: auto;
-  border-right: 1px solid #e8eaec;
-  &-wrapper {
-    display: flex;
-    font-size: 12px;
-    color: $input-color;
-  }
-}
-</style>

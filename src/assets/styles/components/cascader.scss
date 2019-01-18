@@ -1,0 +1,53 @@
+@import "../var.scss";
+.y-cascader {
+  position: relative;
+  .y-cascader-arrow:last-of-type {
+    display: none;
+    cursor: pointer;
+  }
+  &:hover {
+    .y-cascader-arrow:last-of-type {
+      display: inline-flex;
+    }
+  }
+  &-show-clear:hover {
+    .y-cascader-arrow:first-of-type {
+      display: none;
+    }
+  }
+  &-visible {
+    .y-cascader-arrow:first-of-type {
+      transform: rotate(180deg);
+    }
+  }
+  &-wrapper {
+    position: relative;
+  }
+  &-trigger {
+    width: 100%;
+    height: $input-height;
+    padding: 0 16px;
+    outline: none;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    color: $input-color;
+    cursor: pointer;
+    &::placeholder {
+      color: #dcdee2;
+    }
+  }
+  &-arrow {
+    font-size: 12px;
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    margin-top: -6px;
+    transition: all 0.2s ease-in-out;
+  }
+  &-popover {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    @extend %box-shadow;
+  }
+}

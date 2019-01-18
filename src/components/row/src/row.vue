@@ -23,26 +23,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-  .y-row {
-    display: flex;
-    &.justify {
-      &-start {
-        justify-content: flex-start;
-      }
-      &-end {
-        justify-content: flex-end;
-      }
-      &-center {
-        justify-content: center;
-      }
-      &-around {
-        justify-content: space-around;
-      }
-      &-between {
-        justify-content: space-between;
-      }
-    }
-  }
-</style>

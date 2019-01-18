@@ -42,22 +42,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.y-cascader-item {
-  padding: 8px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  &-active {
-    background: #f3f3f3;
-    color: #2d8cf0;
-  }
-  &:hover {
-    background: #f3f3f3;
-  }
-  &-arrow {
-    transform: scale(0.7);
-    font-size: 12px;
-    color: inherit;
-  }
-}
+
 </style>
