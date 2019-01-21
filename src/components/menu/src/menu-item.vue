@@ -1,5 +1,5 @@
 <template>
-  <li :class="classes" @click.stop="handleClick">
+  <li :class="classes" @click.stop="handleClick" :style="itemStyle">
     <slot></slot>
   </li>
 </template>
@@ -7,10 +7,11 @@
 <script>
 import { findComponentUpward } from '../../../utils/assistant.js'
 import Emitter from '../../../mixins/emitter.js'
+import mixin from './mixin.js'
 const prefix = 'y-menu-item'
 export default {
   name: 'y-menu-item',
-  mixins: [Emitter],
+  mixins: [Emitter, mixin],
   props: {
     name: {
       type: String,
@@ -31,6 +32,10 @@ export default {
           [`${this.prefix}-active`]: this.active,
         },
       ]
+    },
+    itemStyle () {
+      return this.hasParentSubmenu && this.mode !== 'horizontal'
+        ? { paddingLeft: `${43 + (this.parentSubmenuNum - 1) * 24}px` } : {}
     },
   },
   methods: {
@@ -55,17 +60,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.y-menu-item {
-  position: relative;
-  padding: 0 20px;
-  white-space: nowrap;
-  z-index: 1;
-  cursor: pointer;
-  &-active {
-    z-index: 1;
-    border-bottom: 2px solid #2d8cf0;
-  }
-}
-</style>

@@ -1,5 +1,5 @@
 <template>
-  <ul :class="classes"><slot></slot></ul>
+  <ul :class="classes" :style="styles"><slot></slot></ul>
 </template>
 
 <script>
@@ -18,12 +18,37 @@ export default {
     activeName: {
       type: String,
     },
+    mode: {
+      type: String,
+      default: 'horizontal',
+      validator (value) {
+        return ['horizontal', 'vertical'].indexOf(value) >= 0
+      },
+    },
+    width: {
+      type: String,
+      default: '240',
+    },
+    accordion: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     classes () {
       return [
         `${this.prefix}`,
+        {
+          [`${this.prefix}-${this.mode}`]: this.mode,
+        },
       ]
+    },
+    styles () {
+      let style = {}
+      if (this.mode === 'vertical') {
+        style.width = this.width + 'px'
+      }
+      return style
     },
   },
   methods: {
@@ -46,24 +71,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.y-menu {
-  display: flex;
-  height: 60px;
-  line-height: 60px;
-  position: relative;
-  color: #515a6e;
-  &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    margin-top: -1px;
-    background:#dcdee2;
-  }
-}
-</style>

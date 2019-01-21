@@ -34,14 +34,21 @@
     //-   y-tab-pane(label="标题3" name="name3")  标签3的内容
     //- p {{selected}}
     //- y-cascader(:data="source" v-model="selected" @on-change="fn")
-    y-menu(active-name="home" @on-select="handleMenuSelect")
-      y-menu-item(name="home") 首页
-      y-menu-item(name="about") 关于
-      y-sub-menu(name="contacts")
-        template(slot="title") 联系方式
-        y-menu-item(name="phone") 手机
-        y-menu-item(name="wechat")  微信
-        y-menu-item(name="qq")  QQ
+    y-menu(active-name="home" @on-select="handleMenuSelect" mode="vertical" accordion)
+      y-menu-item(name="ddd")  ddd
+      y-sub-menu(name="content")
+        template(slot="title") 内容管理
+        y-menu-item(name="article") 文章管理
+        y-menu-item(name="comment")  评论管理
+        y-menu-item(name="report")  举报管理
+      y-sub-menu(name="user")
+        template(slot="title") 用户管理
+        y-menu-item(name="userAdd") 新增用户
+        y-menu-item(name="userActive")  活跃用户
+      y-sub-menu(name="statistics")
+        template(slot="title") 统计分析
+        y-menu-item(name="userKeep") 用户留存
+        y-menu-item(name="userLeave")  流失用户
 </template>
 
 <script>
