@@ -1,7 +1,10 @@
 <template>
   <li :class="classes" @mouseenter="handleEnter" @mouseleave="handleLeave">
     <div :class="`${prefix}-title`" :style="titleStyle" @click="handleClick">
-      <slot name="title"></slot>
+      <div>
+        <slot name="title"></slot>
+      </div>
+      <y-icon name="down" :class="`${prefix}-title-icon`"></y-icon>
     </div>
     <template v-if="mode === 'vertical'">
       <ul class="y-menu-vertical" v-show="menuVisible">
@@ -19,10 +22,14 @@
 <script>
 import Emitter from '../../../mixins/emitter.js'
 import mixin from './mixin.js'
+import YIcon from '@/components/icon/src/icon'
 const prefix = 'y-sub-menu'
 export default {
   name: 'y-sub-menu',
   mixins: [Emitter, mixin],
+  components: {
+    YIcon,
+  },
   props: {
     name: {
       type: String,
@@ -42,6 +49,7 @@ export default {
         `${this.prefix}`,
         {
           [`${this.prefix}-active`]: this.active,
+          [`${this.prefix}-open`]: this.menuVisible,
         },
       ]
     },
@@ -58,6 +66,7 @@ export default {
       if (this.mode === 'horizontal') {
         return
       }
+      const menuVisible = this.menuVisible
       if (this.accordion) {
         this.$parent.$children.forEach(vm => {
           if (vm.$options.name === 'y-sub-menu') {
@@ -65,7 +74,7 @@ export default {
           }
         })
       }
-      this.menuVisible = !this.menuVisible
+      this.menuVisible = !menuVisible
     },
     handleEnter () {
       if (this.mode === 'vertical') {

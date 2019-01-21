@@ -27,6 +27,9 @@
       &:hover {
         color: #2d8cf0;
       }
+      &-icon {
+        float: right;
+      }
     }
   }
   &-horizontal {
@@ -47,6 +50,9 @@
       padding: 0 20px;
       &-active {
         z-index: 1;
+        border-bottom: 2px solid #2d8cf0;
+      }
+      &:hover {
         border-bottom: 2px solid #2d8cf0;
       }
     }
@@ -86,12 +92,34 @@
     }
   }
 }
+.y-sub-menu-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  svg{
+    margin-right: 8px;
+  }
+  &-icon {
+    vertical-align: middle;
+    font-size: 12px;
+    margin-left: 8px;
+  }
+}
+  
 .y-menu-item {
   position: relative;
   white-space: nowrap;
   z-index: 1;
   cursor: pointer;
+  > svg {
+    margin-right: 8px;
+  }
 }
 .y-sub-menu {
   cursor: pointer;
+  &-open {
+    .y-sub-menu-title-icon {
+      transform: rotateZ(180deg);
+    }
+  }
 }

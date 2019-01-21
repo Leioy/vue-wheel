@@ -34,10 +34,14 @@
     //-   y-tab-pane(label="标题3" name="name3")  标签3的内容
     //- p {{selected}}
     //- y-cascader(:data="source" v-model="selected" @on-change="fn")
-    y-menu(active-name="home" @on-select="handleMenuSelect" mode="vertical" accordion)
-      y-menu-item(name="ddd")  ddd
+    y-menu(active-name="home" @on-select="handleMenuSelect"  accordion)
+      y-menu-item(name="ddd")
+        y-icon(name="settings")
+        | ddd
       y-sub-menu(name="content")
-        template(slot="title") 内容管理
+        template(slot="title")
+          y-icon(name="settings")
+          | 内容管理
         y-menu-item(name="article") 文章管理
         y-menu-item(name="comment")  评论管理
         y-menu-item(name="report")  举报管理
