@@ -74,6 +74,7 @@ export default {
           }
         })
       }
+      this.menu.updateOpenKeys(this.name)
       this.menuVisible = !menuVisible
     },
     handleEnter () {
