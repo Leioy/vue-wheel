@@ -6,16 +6,16 @@
       </div>
       <y-icon name="down" :class="`${prefix}-title-icon`"></y-icon>
     </div>
-    <template v-if="mode === 'vertical'">
-      <ul class="y-menu-vertical" v-show="menuVisible">
-        <slot></slot>
-      </ul>
-    </template>
-    <template v-else>
-      <div :class="`${prefix}-popover`" v-show="menuVisible">
-        <slot></slot>
-      </div>
-    </template>
+      <collapse-transition v-if="mode === 'vertical'">
+        <ul class="y-menu-vertical" v-show="menuVisible">
+          <slot></slot>
+        </ul>
+      </collapse-transition>
+      <transition name="slide-up" v-else>
+        <div :class="`${prefix}-popover`" v-show="menuVisible">
+          <slot></slot>
+        </div>
+      </transition>
   </li>
 </template>
 
@@ -23,12 +23,14 @@
 import Emitter from '../../../mixins/emitter.js'
 import mixin from './mixin.js'
 import YIcon from '@/components/icon/src/icon'
+import CollapseTransition from '../../base/collapse-transition.js'
 const prefix = 'y-sub-menu'
 export default {
   name: 'y-sub-menu',
   mixins: [Emitter, mixin],
   components: {
     YIcon,
+    CollapseTransition,
   },
   props: {
     name: {
