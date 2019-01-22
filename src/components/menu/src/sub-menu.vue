@@ -12,7 +12,7 @@
         </ul>
       </collapse-transition>
       <transition name="slide-up" v-else>
-        <div :class="`${prefix}-popover`" v-show="menuVisible">
+        <div :class="`${prefix}-popover`" v-show="menuVisible" ref="popover">
           <slot></slot>
         </div>
       </transition>
@@ -85,6 +85,7 @@ export default {
       }
       clearTimeout(this.timer)
       this.timer = setTimeout(() => {
+        this.menu.updateOpenKeys(this.name)
         this.menuVisible = true
       }, 250)
     },
