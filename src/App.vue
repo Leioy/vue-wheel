@@ -34,7 +34,7 @@
     //-   y-tab-pane(label="标题3" name="name3")  标签3的内容
     //- p {{selected}}
     //- y-cascader(:data="source" v-model="selected" @on-change="fn")
-    y-menu(active-name="home" @on-select="handleMenuSelect"  accordion)
+    y-menu(active-name="article" @on-select="handleMenuSelect" mode="vertical" accordion :open-names="['user','statistics','1']")
       y-menu-item(name="ddd")
         y-icon(name="settings")
         | ddd

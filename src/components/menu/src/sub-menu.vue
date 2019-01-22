@@ -91,6 +91,7 @@ export default {
       }
       clearTimeout(this.timer)
       this.timer = setTimeout(() => {
+        this.menu.updateOpenKeys(this.name)
         this.menuVisible = false
       }, 150)
     },
