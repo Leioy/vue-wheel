@@ -1,8 +1,9 @@
 <template>
   <div :class="`${prefix}-wrapper`">
-    <div :class="classObj" :style="styleObj">
+    <div :class="classObj" :style="styleObj" ref="sticky">
       <slot></slot>
     </div>
+    <div v-show="slot" :style="slotStyleObj"></div>
   </div>
 </template>
 
@@ -44,7 +45,9 @@ export default {
     return {
       prefix,
       sticky: false,
+      slot: false,
       styleObj: {},
+      slotStyleObj: {},
     }
   },
   computed: {
@@ -69,6 +72,11 @@ export default {
       const elOffset = getComputedOffset(this.$el)
       if (elOffset.top - this.offset < scrollTop) {
         this.sticky = true
+        this.slot = true
+        this.slotStyleObj = {
+          width: this.$refs.sticky.clientWidth + 'px',
+          height: this.$refs.sticky.clientHeight + 'px',
+        }
         this.styleObj = {
           top: `${this.offset}px`,
           left: `${elOffset.left}px`,
@@ -76,7 +84,9 @@ export default {
         }
       } else {
         this.sticky = false
+        this.slot = false
         this.styleObj = {}
+        this.slotStyleObj = {}
       }
     },
   },
