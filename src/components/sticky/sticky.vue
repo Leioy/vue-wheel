@@ -73,6 +73,8 @@ export default {
       if (elOffset.top - this.offset < scrollTop) {
         this.sticky = true
         this.slot = true
+        // 第一次执行时是sticky不是fixed，为什么？
+        // console.log(window.getComputedStyle(this.$refs.sticky).getPropertyValue('position'))
         this.slotStyleObj = {
           width: this.$refs.sticky.clientWidth + 'px',
           height: this.$refs.sticky.clientHeight + 'px',
