@@ -1,6 +1,7 @@
-<template lang="pug">
-  .y-button-group
-    slot
+<template>
+  <div class="y-button-group">
+    <slot></slot>
+  </div>
 </template>
 
 <script>
