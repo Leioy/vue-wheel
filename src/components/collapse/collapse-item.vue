@@ -1,8 +1,11 @@
-<template lang="pug">
-  .y-collapse-item(:class="{active:isActive}" @click="toggle")
-    .y-collapse-header {{title}}
-    .y-collapse-content(v-show="isActive")
-      slot
+<template>
+
+  <div class="y-collapse-item" :class="{active:isActive}" @click="toggle">
+    <div class="y-collapse-header">{{title}}</div>
+    <div class="y-collapse-content" v-show="isActive">
+      <slot></slot>
+    </div>
+  </div>
 </template>
 
 <script>

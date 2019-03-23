@@ -1,6 +1,7 @@
-<template lang="pug">
-  .y-collapse
-    slot
+<template>
+  <div class="y-collapse">
+    <slot></slot>
+  </div>
 </template>
 
 <script>
