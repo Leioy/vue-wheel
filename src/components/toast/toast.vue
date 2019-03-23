@@ -1,10 +1,12 @@
-<template lang="pug">
-  .y-toast(:class="classObj")
-    .y-toast__inner(ref="toast")
-      div(v-if="enableHtml" v-html="$slots.default[0]")
-      slot(v-else)
-      .line(ref="line")
-      span(v-if="closeButton" @click="handleClick" class="close") {{closeButton.text}}
+<template>
+  <div class="y-toast" :class="classObj">
+    <div class="y-toast__inner" ref="toast">
+      <div v-if="enableHtml" v-html="$slots.default[0]"></div>
+      <slot v-else></slot>
+      <div class="line" ref="line"></div>
+      <span v-if="closeButton" @click="handleClick" class="close">{{closeButton.text}}</span>
+    </div>
+  </div>
 </template>
 
 <script>
