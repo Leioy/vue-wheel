@@ -1,6 +1,7 @@
-<template lang="pug">
-  svg.y-icon
-    use(:xlink:href="`#i-${name}`")
+<template>
+  <svg class="y-icon">
+    <use :xlink:href="`#i-${name}`"></use>
+  </svg>
 </template>
 
 <script>
@@ -13,13 +14,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-  .y-icon {
-    width: 1em; height: 1em;
-    vertical-align: -0.15em;
-    fill: currentColor;
-    overflow: hidden;
-    transition: all ease .3s;
-  }
-</style>
