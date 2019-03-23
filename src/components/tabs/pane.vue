@@ -1,6 +1,7 @@
-<template lang="pug">
-  .y-tabs-pane(v-show="show")
-    slot
+<template>
+  <div class="y-tabs-pane" v-show="show">
+    <slot></slot>
+  </div>
 </template>
 
 <script>

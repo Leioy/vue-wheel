@@ -1,12 +1,17 @@
-<template lang="pug">
-  div(:class="classes")
-    div(:class="`${prefix}-bar`")
-      div(:class="`${prefix}-nav-scroll`")
-        div(:class="`${prefix}-nav`" ref="nav")
-          div(:class="barClass")
-          div(:class="tabClass(tab)" v-for="(tab,index) in navList" :key="index" @click="handleTabChange(tab)") {{tab.label}}
-    div(:class="contentClass" :style="contentStyle")
-      slot
+<template>
+  <div :class="classes">
+    <div :class="`${prefix}-bar`">
+      <div :class="`${prefix}-nav-scroll`">
+        <div :class="`${prefix}-nav`" ref="nav">
+          <div :class="barClass"></div>
+          <div :class="tabClass(tab)" v-for="(tab,index) in navList" :key="index" @click="handleTabChange(tab)">{{tab.label}}</div>
+        </div>
+      </div>
+    </div>
+    <div :class="contentClass" :style="contentStyle">
+      <slot></slot>
+    </div>
+  </div>
 </template>
 
 <script>
