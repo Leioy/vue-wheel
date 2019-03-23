@@ -1,6 +1,7 @@
-<template lang="pug">
-  .y-row(:style="styleObj" :class="classObj")
-    slot
+<template>
+  <div class="y-row" :class="classObj" :style="styleObj">
+    <slot></slot>
+  </div>
 </template>
 
 <script>
