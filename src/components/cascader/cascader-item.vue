@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import YIcon from '@/components/icon/src/icon'
+import YIcon from '@/components/icon/icon'
 const prefix = 'y-cascader-item'
 export default {
   data () {

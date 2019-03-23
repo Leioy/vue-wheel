@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import YIcon from '../icon/src/icon'
+import YIcon from '../icon/icon'
 const prefix = 'y-pager'
 function uniqueArray (arr) {
   const obj = {}

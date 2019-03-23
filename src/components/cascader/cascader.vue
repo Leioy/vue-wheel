@@ -28,7 +28,7 @@
 
 <script>
 import YCascaderPane from './cascader-pane'
-import YIcon from '@/components/icon/src/icon'
+import YIcon from '@/components/icon/icon'
 import Emitter from '@/mixins/emitter'
 const prefix = 'y-cascader'
 export default {

@@ -20,10 +20,10 @@
 </template>
 
 <script>
-import Emitter from '../../../mixins/emitter.js'
+import Emitter from '../../mixins/emitter.js'
 import mixin from './mixin.js'
-import YIcon from '@/components/icon/src/icon'
-import CollapseTransition from '../../base/collapse-transition.js'
+import YIcon from '@/components/icon/icon'
+import CollapseTransition from '../base/collapse-transition.js'
 const prefix = 'y-sub-menu'
 export default {
   name: 'y-sub-menu',

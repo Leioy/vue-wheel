@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import { findComponentUpward } from '../../../utils/assistant.js'
-import Emitter from '../../../mixins/emitter.js'
+import { findComponentUpward } from '../../utils/assistant.js'
+import Emitter from '../../mixins/emitter.js'
 import mixin from './mixin.js'
 const prefix = 'y-menu-item'
 export default {

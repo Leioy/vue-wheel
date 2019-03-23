@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import Emitter from '../../../mixins/emitter.js'
-import { findComponentsDownward, findComponentsUpward } from '../../../utils/assistant.js'
+import Emitter from '../../mixins/emitter.js'
+import { findComponentsDownward, findComponentsUpward } from '../../utils/assistant.js'
 const prefix = 'y-menu'
 export default {
   name: 'y-menu',

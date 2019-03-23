@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import YIcon from '@/components/icon/src/icon'
+import YIcon from '@/components/icon/icon'
 export default {
   name: 'y-button',
   props: {

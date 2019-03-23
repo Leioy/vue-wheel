@@ -1,4 +1,4 @@
-import { findComponentUpward, findComponentsUpward } from '../../../utils/assistant'
+import { findComponentUpward, findComponentsUpward } from '../../utils/assistant'
 export default {
   data () {
     return {
