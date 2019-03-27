@@ -1,12 +1,10 @@
-$border-color-hover: #666;
+// common
+$border-color-hover: #2d8cf0;
 $border-color: #dcdee2;
 $border-color-light: lighten($border-color,25%);
 $border-radius: 4px;
-$button-active-bg: #eee;
-$button-bg: #fff;
 $button-height: 32px;
-$button-height: 32px;
-$font-size: 14px;
+$font-size: 12px;
 $input-height: 32px;
 $input-color:#515a6e;
 
@@ -20,5 +18,41 @@ $input-color:#515a6e;
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+
+// button
+$button-primary-fill: #2d8cf0;
+$button-warning-fill: #faa121;
+$button-error-fill: #c40707;
+$button-success-fill: #1b9451;
+$button-default-fill: #eee;
+$button-info-fill: #00bcd4;
+%button-ripple {
+  overflow: hidden;
+  position: relative;
+  // transition: background-color .3s linear, border .3s linear;
+  transition: border .3s linear;
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #000 10%, rgba(0, 0, 0, 0) 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10);
+    opacity: 0;
+    transition: transform .5s, opacity 1s;
+  }
+  &:active:after {
+      transform: scale(0);
+      opacity: .2;
+      transition: 0s;
   }
 }

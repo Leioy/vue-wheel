@@ -1,8 +1,8 @@
 <template>
-  <button class="y-button" :class="[`icon-${iconPosition}`]" @click="$emit('click')">
+  <button :class="classObj"  @click="$emit('click')">
     <y-icon v-if="loading" name="loading" class="icon loading"></y-icon>
     <y-icon v-if="icon && !loading" :name="icon" class="icon"></y-icon>
-    <div class="y-content">
+    <div :class="`${prefix}-content`">
       <slot></slot>
     </div>
   </button>
@@ -10,12 +10,17 @@
 
 <script>
 import YIcon from '@/components/icon/icon'
+const prefix = 'y-button'
 export default {
-  name: 'y-button',
+  name: prefix,
   props: {
     loading: {
       type: Boolean,
       default: false,
+    },
+    type: {
+      type: String,
+      default: 'default',
     },
     icon: {
       type: String,
@@ -29,8 +34,24 @@ export default {
       },
     },
   },
+  data () {
+    return {
+      prefix,
+    }
+  },
   components: {
     YIcon,
+  },
+  computed: {
+    classObj () {
+      return [
+        `${this.prefix}`,
+        `${this.prefix}-icon-${this.iconPosition}`,
+        {
+          [`${this.prefix}-button-${this.type}`]: this.type,
+        },
+      ]
+    },
   },
 }
 </script>

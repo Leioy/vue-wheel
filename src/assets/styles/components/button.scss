@@ -1,19 +1,18 @@
 @import '../var.scss';
 
 .y-button {
+  min-width: 64px;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  height: $button-height;
   vertical-align: middle;
-  padding: 0 1em;
-  background-color: $button-bg;
-  border: 1px solid $border-color;
+  padding: 10px 16px;
   border-radius: $border-radius;
   font-size: $font-size;
   outline: none;
   cursor: pointer;
-  &.icon-right {
+  @extend %button-ripple;
+  &-icon-right {
     .icon {
       order: 2;
       margin-right: 0;
@@ -23,16 +22,57 @@
       order: 1;
     }
   }
-  &:hover {
-    border-color: $border-color-hover;
-  }
-  &:active {
-    background-color: $button-active-bg;
-  }
   .icon {
     margin-right: .1em;
   }
   .loading {
     animation: spin 2s infinite linear;
+  }
+  &-button-default {
+    background-color: $button-default-fill;
+    border: none;
+    &:hover {
+      background-color: darken($button-default-fill,10%);
+    }
+  }
+  &-button-primary {
+    background-color: $button-primary-fill;
+    color: #fff;
+    border: none;
+    &:hover {
+      background-color:darken($button-primary-fill,10%);
+    }
+  }
+  &-button-warning {
+    background-color: $button-warning-fill;
+    color: #fff;
+    border: none;
+    &:hover {
+      background-color:darken($button-warning-fill,10%);
+    }
+  }
+  &-button-error {
+    background-color: $button-error-fill;
+    color: #fff;
+    border: none;
+    &:hover {
+      background-color:darken($button-error-fill,10%);
+    }
+  }
+  &-button-success {
+    background-color: $button-success-fill;
+    color: #fff;
+    border: none;
+    &:hover {
+      background-color:darken($button-success-fill,10%);
+    }
+  }
+  &-button-info {
+    background-color: $button-info-fill;
+    color: #fff;
+    border: none;
+    &:hover {
+      background-color:darken($button-info-fill,10%);
+    }
   }
 }
