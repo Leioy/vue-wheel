@@ -51,7 +51,7 @@ export default {
         `${this.prefix}`,
         `${this.prefix}-icon-${this.iconPosition}`,
         {
-          [`${this.prefix}-button-${this.type}`]: this.type,
+          [`${this.prefix}-${this.type}`]: this.type,
         },
       ]
     },
