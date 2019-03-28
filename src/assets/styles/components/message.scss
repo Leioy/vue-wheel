@@ -1,0 +1,56 @@
+@import '../var.scss';
+.y-message {
+  padding: 8px 24px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 300px;
+  min-height: 53px;
+  &-left {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+  }
+  &-icon {
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  &-info {
+    background: #1976d2;
+    .y-message-button-close:hover {
+      background: darken(#1976d2,5%);
+    }
+  }
+  &-warning {
+    background: #ffa000;
+    .y-message-button-close:hover {
+      background: darken(#ffa000,5%);
+    }
+  }
+  &-success {
+    background: #43a047;
+    .y-message-button-close:hover {
+      background: darken(#43a047,5%);
+    }
+  }
+  &-error {
+    background: #d32f2f;
+    .y-message-button-close:hover {
+      background: darken(#d32f2f,5%);
+    }
+  }
+  &-wrapper {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  &-button-close {
+    margin-left: 12px;
+    padding: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    @extend %button-ripple;
+    font-size: 12px;
+  }
+}
