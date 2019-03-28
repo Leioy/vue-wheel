@@ -18,15 +18,15 @@
       margin-right: 0;
       margin-left: .5em;
     }
-    .y-content {
+    .y-button-content {
       order: 1;
     }
   }
   .icon {
-    margin-right: .1em;
+    margin-right: .5em;
   }
   .loading {
-    animation: spin 2s infinite linear;
+    animation: spin 1.5s infinite linear;
   }
   &-button-default {
     background-color: $button-default-fill;

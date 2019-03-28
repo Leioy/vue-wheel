@@ -3,7 +3,10 @@
     <y-icon v-if="loading" name="loading" class="icon loading"></y-icon>
     <y-icon v-if="icon && !loading" :name="icon" class="icon"></y-icon>
     <div :class="`${prefix}-content`">
-      <slot></slot>
+      <template v-if="loading">loading...</template>
+      <template v-else>
+        <slot></slot>
+      </template>
     </div>
   </button>
 </template>
