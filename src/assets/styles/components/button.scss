@@ -12,11 +12,11 @@
   outline: none;
   cursor: pointer;
   @extend %button-ripple;
-  &-icon-right {
+  &.y-button-icon-right {
     .icon {
       order: 2;
       margin-right: 0;
-      margin-left: .1em;
+      margin-left: .5em;
     }
     .y-content {
       order: 1;
