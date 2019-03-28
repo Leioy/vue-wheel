@@ -1,4 +1,10 @@
 .y-col {
+  &:nth-child(odd) {
+    background: rgba(0,153,229,.7);
+  }
+  &:nth-child(even) {
+    background: rgba(0,153,229,.5);
+  }
   $class-prefix: col-;
   @for $i from 1 through 24 {
     &.#{$class-prefix}#{$i} {

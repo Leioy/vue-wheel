@@ -39,7 +39,7 @@ export default {
   computed: {
     styleObj () {
       const { gutter } = this
-      return { paddingLeft: `${+gutter / 2}px`, paddingRight: `${+gutter / 2}px` }
+      return { marginLeft: `${+gutter / 2}px`, marginRight: `${+gutter / 2}px` }
     },
     classObj () {
       const { span, offset, ipad, narrowPc, pc, widePc } = this
