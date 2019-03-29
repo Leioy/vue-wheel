@@ -1,12 +1,13 @@
 <template>
-  <div class="y-collapse">
+  <div :class="`${prefix}`">
     <slot></slot>
   </div>
 </template>
 
 <script>
+const prefix = 'y-collapse'
 export default {
-  name: 'y-collapse',
+  name: prefix,
   props: {
     value: {
       type: [Array, String],
@@ -19,6 +20,7 @@ export default {
   data () {
     return {
       currentValue: this.value,
+      prefix,
     }
   },
   watch: {

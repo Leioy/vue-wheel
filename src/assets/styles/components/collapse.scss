@@ -9,24 +9,25 @@
       border-top: none;
     }
     &:last-child {
-      .y-collapse-content {
+      .y-collapse-item-content {
         border-radius: 0 0 4px 4px;
       }
     }
-    &.active {
-      .y-collapse-header {
-        border-bottom: 1px solid #dcdee2;
+    &-header {
+      min-height: 32px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      background: #eee;
+      color: rgba(0,0,0,.85);
+    }
+    &-content {
+      padding: 0 16px;
+      transition: height .2s;
+      &-box {
+        padding-top: 16px;
+        padding-bottom: 16px;
       }
     }
-  }
-  &-header {
-    min-height: 32px;
-    display: flex;
-    align-items: center;
-    padding: 0 8px;
-  }
-  &-content {
-    padding-top: 16px;
-    padding-bottom: 16px;
   }
 }
