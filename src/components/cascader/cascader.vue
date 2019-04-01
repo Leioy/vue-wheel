@@ -124,6 +124,13 @@ export default {
     currentValue () {
       this.$emit('input', this.currentValue)
     },
+    visible (val) {
+      if (val) {
+        document.addEventListener('click', this.handleClose)
+      } else {
+        document.removeEventListener('click', this.handleClose)
+      }
+    },
   },
 }
 </script>
