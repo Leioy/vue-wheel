@@ -1,5 +1,5 @@
 <template>
-  <svg class="y-icon">
+  <svg class="y-icon" :style="styleObj">
     <use :xlink:href="`#icon-${name}`"></use>
   </svg>
 </template>
@@ -11,6 +11,16 @@ export default {
     name: {
       type: String,
       required: true,
+    },
+    color: {
+      type: String,
+    },
+  },
+  computed: {
+    styleObj () {
+      return {
+        color: this.color,
+      }
     },
   },
 }
