@@ -1,6 +1,6 @@
 <template>
   <svg class="y-icon">
-    <use :xlink:href="`#i-${name}`"></use>
+    <use :xlink:href="`#icon-${name}`"></use>
   </svg>
 </template>
 
@@ -10,6 +10,7 @@ export default {
   props: {
     name: {
       type: String,
+      required: true,
     },
   },
 }

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import '@/components/icon/svg.js'
+import './assets/icons/index'
 import Toast from './components/toast/plugin'
 import Message from './components/message/index'
 import './assets/styles/index.scss'
