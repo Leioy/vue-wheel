@@ -65,27 +65,13 @@ export default {
     visibleDays () {
       const date = this.value
       const first = helper.firstDayOfMonth(date)
-      const last = helper.lastDayOfMonth(date)
       const array = []
-      const [year, month] = helper.getYearMonthDate(date)
-      for (let i = first.getDate(); i <= last.getDate(); i++) {
-        array.push(new Date(year, month, i))
+      const n = first.getDay()
+      const x = first - (n === 0 ? 6 : n) * 3600 * 24 * 1000
+      for (let i = 0; i < 42; i++) {
+        array.push(new Date(x + i * 3600 * 24 * 1000))
       }
-      // first.getDay() 表示星期几 范围是0-6，0表示星期天
-      const n = first.getDay() === 0 ? 6 : first.getDay() - 1
-      let array2 = []
-      for (let i = 0; i <= n; i++) {
-        array2.push(new Date(year, month, -i))
-      }
-      array2 = array2.reverse()
-      const m = 42 - array.length - array2.length
-      const array3 = []
-      for (let i = 1; i <= m; i++) {
-        array3.push(new Date(year, month + 1, i))
-      }
-      const array4 = [...array2, ...array, ...array3]
-      console.log(array4)
-      return array4
+      return array
     },
   },
   methods: {
