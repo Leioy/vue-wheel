@@ -1,16 +1,18 @@
 <template>
-  <div style="border: 1px solid red">
-    <y-popover position="bottom">
+  <div :class="`${prefix}`" style="border: 1px solid red">
+    <y-popover position="bottom" :styleObj="styleObj">
       <y-input></y-input>
       <template slot="content">
         <div :class="`${prefix}-pop`">
           <div :class="`${prefix}-nav`">
-            <span><y-icon name="fast-forward"></y-icon></span>
-            <span><y-icon name="left"></y-icon></span>
-            <span @click="onClickYear">2012年</span>
-            <span @click="onClickMonth">月</span>
-            <span><y-icon name="right"></y-icon></span>
-            <span><y-icon name="fast-back"></y-icon></span>
+            <span :class="[`${prefix}-forward`,`${prefix}-button`]"><y-icon name="fast-forward"></y-icon></span>
+            <span :class="[`${prefix}-left`,`${prefix}-button`]"><y-icon name="left"></y-icon></span>
+            <span >
+              <span :class="`${prefix}-button`" @click="onClickYear">2012年</span>
+              <span :class="`${prefix}-button`" @click="onClickMonth">9月</span>
+            </span>
+            <span :class="[`${prefix}-right`,`${prefix}-button`]"><y-icon name="right"></y-icon></span>
+            <span :class="[`${prefix}-back`,`${prefix}-button`]"><y-icon name="fast-back"></y-icon></span>
           </div>
           <div :class="`${prefix}-panels`">
             <div v-if="mode === 'years'" :class="`${prefix}-content`">年</div>
@@ -55,6 +57,11 @@ export default {
   mounted () {
   },
   computed: {
+    styleObj () {
+      return {
+        padding: 0,
+      }
+    },
     visibleDays () {
       const date = this.value
       const first = helper.firstDayOfMonth(date)

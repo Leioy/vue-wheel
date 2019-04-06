@@ -1,0 +1,56 @@
+.y-date-picker {
+  &-nav {
+    border-bottom: 1px solid #e8eaec;
+    // display: flex;
+    // justify-content: center;
+    text-align: center;
+    height: 32px;
+    line-height: 32px;
+    span {
+      display: inline-block;
+    }
+  }
+  &-weekdays {
+    span {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      text-align: center;
+      color: #c5c8ce;
+    }
+  }
+  &-col {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    cursor: pointer;
+  }
+  &-panels {
+    padding: 16px;
+  }
+  &-left {
+    float: left;
+    margin-left: 8px;
+  }
+  &-forward {
+    float: left;
+    margin-left: 16px;
+  }
+  &-right {
+    float: right;
+    margin-right: 16px;
+  }
+  &-back {
+    float: right;
+    margin-right: 8px;
+  }
+  &-button {
+    color: #c5c8ce;
+    cursor: pointer;
+    font-size: 12px;
+    &:hover {
+      color: #2d8cf0;
+    }
+  }
+}
