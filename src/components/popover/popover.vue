@@ -1,7 +1,6 @@
 <template>
   <div :class="`${prefix}-wrapper`" ref="popOver">
     <div :class="[`${prefix}-content`,`position-${this.position}`]" v-if="visible" ref="popOverContent" :style="styleObj">
-      <p>{{styleObj}}</p>
       <slot name="content">我是popover</slot>
     </div>
     <span :class="`${prefix}-action`" ref="popOverAction">
