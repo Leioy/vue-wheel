@@ -15,16 +15,22 @@
       display: inline-block;
       width: 28px;
       height: 28px;
+      line-height: 28px;
       text-align: center;
       color: #c5c8ce;
     }
   }
-  &-col {
+  &-cell {
     display: inline-block;
     width: 28px;
     height: 28px;
+    line-height: 28px;
     text-align: center;
     cursor: pointer;
+    color: #c5c8ce;
+    &.current {
+      color: #515a6e;
+    }
   }
   &-panels {
     padding: 16px;
