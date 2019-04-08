@@ -1,32 +1,40 @@
 <template>
   <div :class="`${prefix}`" style="border: 1px solid red">
-    <y-popover position="bottom" :styleObj="styleObj">
-      <y-input :value="formatedDay"></y-input>
+    <y-popover position="bottom" :styleObj="styleObj" >
+      <y-input :value="formatedDay" @click.native="onClickInput"></y-input>
       <template slot="content">
         <div :class="`${prefix}-pop`">
           <div :class="`${prefix}-nav`">
             <span :class="[`${prefix}-forward`,`${prefix}-button`]" @click="onClickPrevYear"><y-icon name="fast-forward"></y-icon></span>
-            <span :class="[`${prefix}-left`,`${prefix}-button`]" @click="onClickPrevMonth"><y-icon name="left"></y-icon></span>
-            <span >
-              <span :class="`${prefix}-button`" @click="onClickYear">{{display.year}}年</span>
-              <span :class="`${prefix}-button`" @click="onClickMonth">{{display.month + 1}}月</span>
+            <span :class="[`${prefix}-left`,`${prefix}-button`]" @click="onClickPrevMonth" v-show="mode === 'days'"><y-icon name="left"></y-icon></span>
+            <span>
+              <span :class="`${prefix}-button`" @click="onClickYear" v-show="mode === 'days'">{{display.year}}年</span>
+              <span :class="`${prefix}-button`"  v-show="mode ==='year'">{{yearList[0]}}年- {{yearList[yearList.length-1]}}年</span>
+              <span :class="`${prefix}-button`" @click="onClickMonth" v-show="mode === 'days'">{{display.month + 1}}月</span>
+              <span :class="`${prefix}-button`"  v-show="mode === 'month'">{{displayCopy.year}}年</span>
             </span>
             <span :class="[`${prefix}-back`,`${prefix}-button`]" @click="onClickNextYear"><y-icon name="fast-back"></y-icon></span>
-            <span :class="[`${prefix}-right`,`${prefix}-button`]" @click="onClickNextMonth"><y-icon name="right"></y-icon></span>
+            <span :class="[`${prefix}-right`,`${prefix}-button`]" @click="onClickNextMonth" v-show="mode === 'days'"><y-icon name="right"></y-icon></span>
           </div>
           <div :class="`${prefix}-panels`">
-            <div v-if="mode === 'years'" :class="`${prefix}-content`">年</div>
-            <div v-else-if="mode === 'months'" :class="`${prefix}-content`">月</div>
-            <div v-else :class="`${prefix}-content`">
-              <!-- <div v-for="(day,index) in visibleDate.splice(0,7)" :key="index">{{day.getDate()}}</div> -->
-              <div :class="`${prefix}-weekdays`">
-                <span v-for="(week,index) in weekdays" :key="index">{{week}}</span>
-              </div>
-              <div :class="`${prefix}-row`" v-for="i in [1,2,3,4,5,6]" :key="i">
-                <span :class="[`${prefix}-cell`,{current:isDayOfCurrentMonth(visibleDay(i,j))}]" v-for="j in [1,2,3,4,5,6,7]" :key="j" @click="onClickCell(visibleDay(i,j))">
-                  {{visibleDay(i,j).getDate()}}
-                </span>
-              </div>
+            <div :class="`${prefix}-content`">
+              <template v-if="mode === 'year'">
+                <span :class="`${prefix}-cell-year`" v-for="(year,index) in yearList" :key="index" @click="onSelectYear(year)">{{year}}</span>
+              </template>
+              <template v-else-if="mode === 'month'">
+                <span :class="`${prefix}-cell-year`" v-for="(month,index) in [0,1,2,3,4,5,6,7,8,9,10,11]" :key="index" @click="onSelectMonth(month)">{{monthList[month]}}</span>
+              </template>
+              <template v-else>
+                <!-- <div v-for="(day,index) in visibleDate.splice(0,7)" :key="index">{{day.getDate()}}</div> -->
+                <div :class="`${prefix}-weekdays`">
+                  <span v-for="(week,index) in weekdays" :key="index">{{week}}</span>
+                </div>
+                <div :class="`${prefix}-row`" v-for="i in [1,2,3,4,5,6]" :key="i">
+                  <span :class="[`${prefix}-cell`,{current:isDayOfCurrentMonth(visibleDay(i,j))}]" v-for="j in [1,2,3,4,5,6,7]" :key="j" @click="onClickCell(visibleDay(i,j))">
+                    {{visibleDay(i,j).getDate()}}
+                  </span>
+                </div>
+              </template>
             </div>
           </div>
         </div>
@@ -53,6 +61,9 @@ export default {
       mode: 'days',
       weekdays: ['日', '一', '二', '三', '四', '五', '六'],
       display: { year, month },
+      displayCopy: { year, month },
+      yearBase: 0,
+      monthList: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
     }
   },
   props: {
@@ -62,15 +73,22 @@ export default {
     },
   },
   mounted () {
+    console.log(this.yearList)
   },
   computed: {
+    yearList () {
+      const arr = []
+      for (let i = 0; i < 12; i++) {
+        arr.unshift(this.display.year - i + this.yearBase)
+      }
+      return arr
+    },
     styleObj () {
       return {
         padding: 0,
       }
     },
     visibleDate () {
-      // const date = this.value
       const date = new Date(this.display.year, this.display.month, 1)
       const first = helper.firstDayOfMonth(date)
       const array = []
@@ -87,11 +105,16 @@ export default {
     },
   },
   methods: {
+    onClickInput () {
+      this.mode = 'days'
+    },
     onClickYear () {
-      this.mode = 'years'
+      this.mode = 'year'
+      this.yearBase = 0
     },
     onClickMonth () {
-      this.mode = 'months'
+      this.mode = 'month'
+      this.displayCopy = { ...this.display }
     },
     visibleDay (row, col) {
       return this.visibleDate[(row - 1) * 7 + col - 1]
@@ -100,7 +123,6 @@ export default {
       this.$emit('input', date)
       this.display.month = date.getMonth()
       this.display.year = date.getFullYear()
-      console.log(new Date(date))
     },
     // 判断是否属于当前月份
     isDayOfCurrentMonth (date) {
@@ -108,10 +130,19 @@ export default {
       return year1 === this.display.year && month1 === this.display.month
     },
     onClickPrevYear () {
-      const oldDate = new Date(this.display.year, this.display.month)
-      const newDate = helper.addYear(oldDate, -1)
-      const [year, month] = helper.getYearMonthDate(newDate)
-      this.display = { year, month }
+      if (this.mode === 'days') {
+        const oldDate = new Date(this.display.year, this.display.month)
+        const newDate = helper.addYear(oldDate, -1)
+        const [year, month] = helper.getYearMonthDate(newDate)
+        this.display = { year, month }
+      } else if (this.mode === 'month') {
+        const oldDate = new Date(this.displayCopy.year, this.displayCopy.month)
+        const newDate = helper.addYear(oldDate, -1)
+        const [year, month] = helper.getYearMonthDate(newDate)
+        this.displayCopy = { year, month }
+      } else {
+        this.yearBase -= 10
+      }
     },
     onClickPrevMonth () {
       const oldDate = new Date(this.display.year, this.display.month)
@@ -126,10 +157,27 @@ export default {
       this.display = { year, month }
     },
     onClickNextYear () {
-      const oldDate = new Date(this.display.year, this.display.month)
-      const newDate = helper.addYear(oldDate, 1)
-      const [year, month] = helper.getYearMonthDate(newDate)
-      this.display = { year, month }
+      if (this.mode === 'days') {
+        const oldDate = new Date(this.display.year, this.display.month)
+        const newDate = helper.addYear(oldDate, 1)
+        const [year, month] = helper.getYearMonthDate(newDate)
+        this.display = { year, month }
+      } else if (this.mode === 'month') {
+        const oldDate = new Date(this.displayCopy.year, this.displayCopy.month)
+        const newDate = helper.addYear(oldDate, 1)
+        const [year, month] = helper.getYearMonthDate(newDate)
+        this.displayCopy = { year, month }
+      } else {
+        this.yearBase += 10
+      }
+    },
+    onSelectYear (year) {
+      this.display.year = year
+      this.mode = 'days'
+    },
+    onSelectMonth (month) {
+      this.display.month = month
+      this.mode = 'days'
     },
   },
 }

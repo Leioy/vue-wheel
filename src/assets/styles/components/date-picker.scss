@@ -1,14 +1,16 @@
 .y-date-picker {
   &-nav {
     border-bottom: 1px solid #e8eaec;
-    // display: flex;
-    // justify-content: center;
     text-align: center;
     height: 32px;
     line-height: 32px;
     span {
       display: inline-block;
     }
+  }
+  &-content {
+    width: 196px;
+    height: 196px;
   }
   &-weekdays {
     span {
@@ -28,6 +30,15 @@
     text-align: center;
     cursor: pointer;
     color: #c5c8ce;
+    &-year {
+      display: inline-block;
+      width: 65px;
+      height: 49px;
+      line-height: 49px;
+      text-align: center;
+      cursor: pointer;
+      color: #515a6e;
+    }
     &.current {
       color: #515a6e;
     }
@@ -35,28 +46,32 @@
   &-panels {
     padding: 16px;
   }
-  &-left {
-    float: left;
-    margin-left: 8px;
-  }
-  &-forward {
-    float: left;
-    margin-left: 16px;
-  }
-  &-right {
-    float: right;
-    margin-right: 16px;
-  }
-  &-back {
-    float: right;
-    margin-right: 8px;
-  }
   &-button {
-    color: #c5c8ce;
+    color: #515a6e;
     cursor: pointer;
     font-size: 12px;
     &:hover {
       color: #2d8cf0;
     }
+  }
+  &-left {
+    float: left;
+    margin-left: 8px;
+    color: #c5c8ce;
+  }
+  &-forward {
+    float: left;
+    margin-left: 16px;
+    color: #c5c8ce;
+  }
+  &-right {
+    float: right;
+    margin-right: 16px;
+    color: #c5c8ce;
+  }
+  &-back {
+    float: right;
+    margin-right: 8px;
+    color: #c5c8ce;
   }
 }
