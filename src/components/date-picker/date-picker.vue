@@ -11,7 +11,7 @@
               <span :class="`${prefix}-button`" @click="onClickYear" v-show="mode === 'days'">{{display.year}}年</span>
               <span :class="`${prefix}-button`"  v-show="mode ==='year'">{{yearList[0]}}年- {{yearList[yearList.length-1]}}年</span>
               <span :class="`${prefix}-button`" @click="onClickMonth" v-show="mode === 'days'">{{display.month + 1}}月</span>
-              <span :class="`${prefix}-button`"  v-show="mode === 'month'">{{displayCopy.year}}年</span>
+              <span :class="`${prefix}-button`"  v-show="mode === 'month'" @click="mode = 'year'">{{displayCopy.year}}年</span>
             </span>
             <span :class="[`${prefix}-back`,`${prefix}-button`]" @click="onClickNextYear"><y-icon name="fast-back"></y-icon></span>
             <span :class="[`${prefix}-right`,`${prefix}-button`]" @click="onClickNextMonth" v-show="mode === 'days'"><y-icon name="right"></y-icon></span>
@@ -22,7 +22,7 @@
                 <span :class="`${prefix}-cell-year`" v-for="(year,index) in yearList" :key="index" @click="onSelectYear(year)">{{year}}</span>
               </template>
               <template v-else-if="mode === 'month'">
-                <span :class="`${prefix}-cell-year`" v-for="(month,index) in [0,1,2,3,4,5,6,7,8,9,10,11]" :key="index" @click="onSelectMonth(month)">{{monthList[month]}}</span>
+                <span :class="`${prefix}-cell-month`" v-for="(month,index) in [0,1,2,3,4,5,6,7,8,9,10,11]" :key="index" @click="onSelectMonth(month)">{{monthList[month]}}</span>
               </template>
               <template v-else>
                 <!-- <div v-for="(day,index) in visibleDate.splice(0,7)" :key="index">{{day.getDate()}}</div> -->
@@ -30,7 +30,7 @@
                   <span v-for="(week,index) in weekdays" :key="index">{{week}}</span>
                 </div>
                 <div :class="`${prefix}-row`" v-for="i in [1,2,3,4,5,6]" :key="i">
-                  <span :class="[`${prefix}-cell`,{current:isDayOfCurrentMonth(visibleDay(i,j))}]" v-for="j in [1,2,3,4,5,6,7]" :key="j" @click="onClickCell(visibleDay(i,j))">
+                  <span :class="[`${prefix}-cell`,{current:isDayOfCurrentMonth(visibleDay(i,j)),selected:isSelected(visibleDay(i,j)),today:isToday(visibleDay(i,j))}]" v-for="j in [1,2,3,4,5,6,7]" :key="j" @click="onClickCell(visibleDay(i,j))">
                     {{visibleDay(i,j).getDate()}}
                   </span>
                 </div>
@@ -128,6 +128,16 @@ export default {
     isDayOfCurrentMonth (date) {
       const [year1, month1] = helper.getYearMonthDate(date)
       return year1 === this.display.year && month1 === this.display.month
+    },
+    isSelected (date) {
+      const [y, m, d] = helper.getYearMonthDate(date)
+      const [y2, m2, d2] = helper.getYearMonthDate(this.value)
+      return y === y2 && m === m2 && d === d2
+    },
+    isToday (date) {
+      const [y, m, d] = helper.getYearMonthDate(date)
+      const [y2, m2, d2] = helper.getYearMonthDate(new Date())
+      return y === y2 && m === m2 && d === d2
     },
     onClickPrevYear () {
       if (this.mode === 'days') {
