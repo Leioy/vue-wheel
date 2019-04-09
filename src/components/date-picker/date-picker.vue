@@ -37,6 +37,9 @@
                     {{visibleDay(i,j).getDate()}}
                   </span>
                 </div>
+                <div :class="`${prefix}-action`">
+                  <span @click="onClickToday">Today</span>
+                </div>
               </template>
             </div>
           </div>
@@ -207,6 +210,13 @@ export default {
       this.display.month = month
       this.display.year = this.displayCopy.year
       this.mode = 'days'
+    },
+    onClickToday () {
+      const [year, month, day] = helper.getYearMonthDate(new Date())
+      this.display = { year, month }
+      const value = `${year}-${month + 1}-${day}`
+      this.$emit('input', value)
+      this.dateVisible = false
     },
   },
 }

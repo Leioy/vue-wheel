@@ -58,7 +58,7 @@
   }
   &-content {
     width: 224px;
-    height: 220px;
+    height: 256px;
     font-size: 12px;
   }
   &-weekdays {
@@ -154,5 +154,17 @@
     float: right;
     margin-right: 8px;
     color: #c5c8ce;
+  }
+  &-action {
+    text-align: right;
+    span {
+      display: inline-block;
+      margin: 2px;
+      width: 32px;
+      height: 28px;
+      line-height: 28px;
+      cursor: pointer;
+      color: #2d8cf0;
+    }
   }
 }
