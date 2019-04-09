@@ -1,9 +1,10 @@
 <template>
   <div :class="`${prefix}`" v-click-outside="close">
-    <div :class="`${prefix}-wrapper`">
+    <div :class="classObj">
       <input type="text" :class="`${prefix}-input`" :value="value" @click="onClickInput" placeholder="select date">
       <span :class="`${prefix}-icon`">
         <y-icon name="date"></y-icon>
+        <y-icon name="delete" v-show="closeVisible" @click.native="onClickClose"></y-icon>
       </span>
     </div>
     <div :class="`${prefix}-pop`" v-show="dateVisible">
@@ -64,6 +65,7 @@ export default {
       yearBase: 0,
       monthList: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
       dateVisible: false,
+      timeout: null,
     }
   },
   props: {
@@ -75,8 +77,14 @@ export default {
     console.log(this.yearList)
   },
   computed: {
-    dateValue () {
-      return this.value ? new Date(this.value) : new Date()
+    classObj () {
+      return [
+        `${this.prefix}-wrapper`,
+        { [`${prefix}-show-clear`]: this.closeVisible },
+      ]
+    },
+    closeVisible () {
+      return !!this.value
     },
     yearList () {
       const arr = []
@@ -103,6 +111,12 @@ export default {
     },
   },
   methods: {
+    onClickClose () {
+      this.$emit('input', '')
+      this.dateVisible = false
+      const [year, month] = helper.getYearMonthDate(new Date())
+      this.display = { year, month }
+    },
     close () {
       this.dateVisible = false
     },
@@ -134,8 +148,11 @@ export default {
       return year1 === this.display.year && month1 === this.display.month
     },
     isSelected (date) {
+      if (!this.value) {
+        return false
+      }
       const [y, m, d] = helper.getYearMonthDate(date)
-      const [y2, m2, d2] = helper.getYearMonthDate(this.dateValue)
+      const [y2, m2, d2] = helper.getYearMonthDate(new Date(this.value))
       return y === y2 && m === m2 && d === d2
     },
     isToday (date) {
@@ -191,6 +208,7 @@ export default {
     },
     onSelectMonth (month) {
       this.display.month = month
+      this.display.year = this.displayCopy.year
       this.mode = 'days'
     },
   },

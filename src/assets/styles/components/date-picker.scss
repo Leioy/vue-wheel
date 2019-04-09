@@ -4,6 +4,19 @@
   position: relative;
   &-wrapper {
     position: relative;
+    .y-date-picker-icon .y-icon:last-of-type {
+      display: none;
+    }
+    &.y-date-picker-show-clear {
+      &:hover {
+        .y-date-picker-icon .y-icon:first-of-type {
+          display: none;
+        }
+        .y-date-picker-icon .y-icon:last-of-type {
+          display: inline-flex;
+        }
+      }
+    }
   }
   &-pop {
     position: absolute;
@@ -51,6 +64,7 @@
   &-weekdays {
     span {
       display: inline-block;
+      margin: 2px;
       width: 28px;
       height: 28px;
       line-height: 28px;
@@ -68,9 +82,6 @@
     cursor: pointer;
     color: #c5c8ce;
     border-radius: 4px;
-    &:hover {
-      background: #E1F0FE;
-    }
     &-year,&-month {
       display: inline-block;
       width: 74px;
@@ -85,6 +96,9 @@
     }
     &.current {
       color: #515a6e;
+      &:hover {
+        background: #E1F0FE;
+      }
     }
     &.selected {
       background: #2d8cf0;
