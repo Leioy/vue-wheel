@@ -73,9 +73,6 @@ export default {
       type: String,
     },
   },
-  mounted () {
-    console.log(this.yearList)
-  },
   computed: {
     classObj () {
       return [
