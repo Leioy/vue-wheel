@@ -16,7 +16,7 @@ describe('Button.vue', () => {
       },
     })
     const useElement = wrapper.find('use')
-    expect(useElement.attributes()['href']).to.equal('#i-settings')
+    expect(useElement.attributes()['href']).to.equal('#icon-settings')
   })
   it('可以设置loading.', () => {
     const wrapper = mount(Button, {
@@ -28,7 +28,7 @@ describe('Button.vue', () => {
     const vm = wrapper.vm
     const useElements = vm.$el.querySelectorAll('use')
     expect(useElements.length).to.equal(1)
-    expect(useElements[0].getAttribute('xlink:href')).to.equal('#i-loading')
+    expect(useElements[0].getAttribute('xlink:href')).to.equal('#icon-loading')
   })
 
   xit('icon 默认的 order 是 1', () => {
