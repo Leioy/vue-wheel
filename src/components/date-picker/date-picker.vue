@@ -1,7 +1,7 @@
 <template>
   <div :class="`${prefix}`" v-click-outside="close">
     <div :class="`${prefix}-wrapper`">
-      <input type="text" :class="`${prefix}-input`" :value="formatedDay" @click="onClickInput" placeholder="select date">
+      <input type="text" :class="`${prefix}-input`" :value="value" @click="onClickInput" placeholder="select date">
       <span :class="`${prefix}-icon`">
         <y-icon name="date"></y-icon>
       </span>
@@ -45,19 +45,16 @@
 
 <script>
 import ClickOutside from '@/directives/click-outside'
-import YInput from '../input/input'
-import YPopover from '../popover/popover'
 import helper from './helper.js'
 const prefix = 'y-date-picker'
 export default {
   name: prefix,
   components: {
-    YInput,
-    YPopover,
   },
   directives: { ClickOutside },
   data () {
-    const [year, month] = helper.getYearMonthDate(this.value)
+    const date = this.value ? new Date(this.value) : new Date()
+    const [year, month] = helper.getYearMonthDate(date)
     return {
       prefix,
       mode: 'days',
@@ -71,14 +68,16 @@ export default {
   },
   props: {
     value: {
-      type: Date,
-      default: () => new Date(),
+      type: String,
     },
   },
   mounted () {
     console.log(this.yearList)
   },
   computed: {
+    dateValue () {
+      return this.value ? new Date(this.value) : new Date()
+    },
     yearList () {
       const arr = []
       for (let i = 0; i < 12; i++) {
@@ -102,10 +101,6 @@ export default {
       }
       return array
     },
-    formatedDay () {
-      const [year, month, day] = helper.getYearMonthDate(this.value)
-      return `${year}-${month + 1}-${day}`
-    },
   },
   methods: {
     close () {
@@ -127,7 +122,8 @@ export default {
       return this.visibleDate[(row - 1) * 7 + col - 1]
     },
     onClickCell (date) {
-      this.$emit('input', date)
+      const value = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+      this.$emit('input', value)
       this.display.month = date.getMonth()
       this.display.year = date.getFullYear()
       this.dateVisible = false
@@ -139,7 +135,7 @@ export default {
     },
     isSelected (date) {
       const [y, m, d] = helper.getYearMonthDate(date)
-      const [y2, m2, d2] = helper.getYearMonthDate(this.value)
+      const [y2, m2, d2] = helper.getYearMonthDate(this.dateValue)
       return y === y2 && m === m2 && d === d2
     },
     isToday (date) {
