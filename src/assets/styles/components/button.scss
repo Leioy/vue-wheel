@@ -23,7 +23,11 @@
     }
   }
   .icon {
+    order: 1;
     margin-right: .5em;
+  }
+  .y-button-content {
+    order: 2;
   }
   .loading {
     animation: spin 1.5s infinite linear;
