@@ -1,4 +1,39 @@
+@import "../var.scss";
 .y-date-picker {
+  display: inline-block;
+  position: relative;
+  &-wrapper {
+    position: relative;
+  }
+  &-pop {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    @extend %box-shadow;
+  }
+  &-input {
+    outline: none;
+    display: inline-block;
+    height: 32px;
+    padding: 4px 7px;
+    font-size: 12px;
+    border: 1px solid #dcdee2;
+    border-radius: 4px;
+    background: #fff;
+    padding-right: 32px;
+    &::placeholder {
+      color: #c5c8ce;
+    }
+  }
+  &-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;
+  }
   &-nav {
     border-bottom: 1px solid #e8eaec;
     text-align: center;
@@ -11,6 +46,7 @@
   &-content {
     width: 224px;
     height: 220px;
+    font-size: 12px;
   }
   &-weekdays {
     span {

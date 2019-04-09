@@ -1,10 +1,13 @@
 <template>
-  <div :class="`${prefix}`" style="border: 1px solid red">
-    <y-popover position="bottom" :styleObj="styleObj" >
-      <y-input :value="formatedDay" @click.native="onClickInput"></y-input>
-      <template slot="content">
-        <div :class="`${prefix}-pop`">
-          <div :class="`${prefix}-nav`">
+  <div :class="`${prefix}`" v-click-outside="close">
+    <div :class="`${prefix}-wrapper`">
+      <input type="text" :class="`${prefix}-input`" :value="formatedDay" @click="onClickInput" placeholder="select date">
+      <span :class="`${prefix}-icon`">
+        <y-icon name="date"></y-icon>
+      </span>
+    </div>
+    <div :class="`${prefix}-pop`" v-show="dateVisible">
+      <div :class="`${prefix}-nav`">
             <span :class="[`${prefix}-forward`,`${prefix}-button`]" @click="onClickPrevYear"><y-icon name="fast-forward"></y-icon></span>
             <span :class="[`${prefix}-left`,`${prefix}-button`]" @click="onClickPrevMonth" v-show="mode === 'days'"><y-icon name="left"></y-icon></span>
             <span>
@@ -25,7 +28,6 @@
                 <span :class="`${prefix}-cell-month`" v-for="(month,index) in [0,1,2,3,4,5,6,7,8,9,10,11]" :key="index" @click="onSelectMonth(month)">{{monthList[month]}}</span>
               </template>
               <template v-else>
-                <!-- <div v-for="(day,index) in visibleDate.splice(0,7)" :key="index">{{day.getDate()}}</div> -->
                 <div :class="`${prefix}-weekdays`">
                   <span v-for="(week,index) in weekdays" :key="index">{{week}}</span>
                 </div>
@@ -37,13 +39,12 @@
               </template>
             </div>
           </div>
-        </div>
-      </template>
-    </y-popover>
+    </div>
   </div>
 </template>
 
 <script>
+import ClickOutside from '@/directives/click-outside'
 import YInput from '../input/input'
 import YPopover from '../popover/popover'
 import helper from './helper.js'
@@ -54,6 +55,7 @@ export default {
     YInput,
     YPopover,
   },
+  directives: { ClickOutside },
   data () {
     const [year, month] = helper.getYearMonthDate(this.value)
     return {
@@ -64,6 +66,7 @@ export default {
       displayCopy: { year, month },
       yearBase: 0,
       monthList: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+      dateVisible: false,
     }
   },
   props: {
@@ -105,7 +108,11 @@ export default {
     },
   },
   methods: {
+    close () {
+      this.dateVisible = false
+    },
     onClickInput () {
+      this.dateVisible = true
       this.mode = 'days'
     },
     onClickYear () {
@@ -123,6 +130,7 @@ export default {
       this.$emit('input', date)
       this.display.month = date.getMonth()
       this.display.year = date.getFullYear()
+      this.dateVisible = false
     },
     // 判断是否属于当前月份
     isDayOfCurrentMonth (date) {
