@@ -1,6 +1,6 @@
 {
   "name": "yyui-vue",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "dist/yui.umd.min.js",
   "private": false,
   "description": "一个UI框架",
