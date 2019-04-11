@@ -1,7 +1,8 @@
 {
-  "name": "vue-wheel",
-  "version": "0.0.1",
-  "private": true,
+  "name": "yyui-vue",
+  "version": "0.0.7",
+  "main": "dist/yui.umd.min.js",
+  "private": false,
   "description": "一个UI框架",
   "keywords": [
     "Vue",
@@ -14,8 +15,6 @@
     "test": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "pug": "^2.0.3",
-    "pug-plain-loader": "^1.0.0",
     "vue": "^2.5.17"
   },
   "devDependencies": {
