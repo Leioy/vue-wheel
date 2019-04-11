@@ -95,13 +95,16 @@
         background: #E1F0FE;
       }
     }
-    &.current {
+    &:not(.selected).current {
       color: #515a6e;
       &:hover {
         background: #E1F0FE;
       }
     }
-    &.selected {
+    &:not(.selected).current.focusd {
+      border: 1px solid #2d8cf0;
+    }
+    &.current.selected {
       background: #2d8cf0;
       color: #fff;
     }

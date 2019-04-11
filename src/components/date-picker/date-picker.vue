@@ -1,7 +1,7 @@
 <template>
   <div :class="`${prefix}`" v-click-outside="close">
     <div :class="classObj">
-      <input type="text" :class="`${prefix}-input`" :value="value" @click="onClickInput" placeholder="select date">
+      <input type="text" :class="`${prefix}-input`" :value="formatedValue" @click="onClickInput" placeholder="select date">
       <span :class="`${prefix}-icon`">
         <y-icon name="date"></y-icon>
         <y-icon name="delete" v-show="closeVisible" @click.native="onClickClose"></y-icon>
@@ -33,7 +33,7 @@
                   <span v-for="(week,index) in weekdays" :key="index">{{week}}</span>
                 </div>
                 <div :class="`${prefix}-row`" v-for="i in [1,2,3,4,5,6]" :key="i">
-                  <span :class="[`${prefix}-cell`,{current:isDayOfCurrentMonth(visibleDay(i,j)),selected:isSelected(visibleDay(i,j)),today:isToday(visibleDay(i,j))}]" v-for="j in [1,2,3,4,5,6,7]" :key="j" @click="onClickCell(visibleDay(i,j))">
+                  <span :class="[`${prefix}-cell`,{current:isDayOfCurrentMonth(visibleDay(i,j)),selected:isSelected(visibleDay(i,j)),focusd:isFocus(visibleDay(i,j)),today:isToday(visibleDay(i,j))}]" v-for="j in [1,2,3,4,5,6,7]" :key="j" @click="onClickCell(visibleDay(i,j))">
                     {{visibleDay(i,j).getDate()}}
                   </span>
                 </div>
@@ -69,6 +69,9 @@ export default {
       monthList: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
       dateVisible: false,
       timeout: null,
+      formatedValue: '',
+      selectedDate: '',
+      focusdValue: new Date(),
     }
   },
   props: {
@@ -84,7 +87,7 @@ export default {
       ]
     },
     closeVisible () {
-      return !!this.value
+      return !!this.formatedValue
     },
     yearList () {
       const arr = []
@@ -110,9 +113,16 @@ export default {
       return array
     },
   },
+  created () {
+    if (this.value) {
+      const [y, m, d] = helper.getYearMonthDate(new Date(this.value))
+      this.formatedValue = `${y}-${m + 1}-${d}`
+    }
+  },
   methods: {
     onClickClose () {
-      this.$emit('input', '')
+      this.formatedValue = ''
+      this.selectedDate = ''
       this.dateVisible = false
       const [year, month] = helper.getYearMonthDate(new Date())
       this.display = { year, month }
@@ -136,8 +146,18 @@ export default {
       return this.visibleDate[(row - 1) * 7 + col - 1]
     },
     onClickCell (date) {
+      // const nodeList = document.querySelectorAll('.y-date-picker-cell')
+      // nodeList.forEach((node) => {
+      //   removeClass(node, 'selected')
+      // })
+      // if (!hasClass(e.target)) {
+      //   addClass(e.target, 'selected')
+      // }
+      this.selectedDate = date
+      this.focusdValue = date
       const value = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-      this.$emit('input', value)
+      this.formatedValue = value
+      this.$emit('on-change', date, value)
       this.display.month = date.getMonth()
       this.display.year = date.getFullYear()
       this.dateVisible = false
@@ -148,11 +168,19 @@ export default {
       return year1 === this.display.year && month1 === this.display.month
     },
     isSelected (date) {
-      if (!this.value) {
+      if (!this.selectedDate) {
         return false
       }
       const [y, m, d] = helper.getYearMonthDate(date)
-      const [y2, m2, d2] = helper.getYearMonthDate(new Date(this.value))
+      const [y2, m2, d2] = helper.getYearMonthDate(this.selectedDate)
+      return y === y2 && m === m2 && d === d2
+    },
+    isFocus (date) {
+      if (!this.focusdValue) {
+        return false
+      }
+      const [y, m, d] = helper.getYearMonthDate(date)
+      const [y2, m2, d2] = helper.getYearMonthDate(this.focusdValue)
       return y === y2 && m === m2 && d === d2
     },
     isToday (date) {
@@ -212,9 +240,12 @@ export default {
       this.mode = 'days'
     },
     onClickToday () {
+      this.selectedDate = new Date()
+      this.focusdValue = new Date()
       const [year, month, day] = helper.getYearMonthDate(new Date())
       this.display = { year, month }
       const value = `${year}-${month + 1}-${day}`
+      this.formatedValue = value
       this.$emit('input', value)
       this.dateVisible = false
     },
