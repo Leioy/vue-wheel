@@ -9,6 +9,7 @@
 import YIcon from '@/components/icon/icon'
 const prefix = 'y-cascader-item'
 export default {
+  name: prefix,
   data () {
     return {
       prefix,

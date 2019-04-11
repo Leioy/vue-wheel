@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes">
+  <div :class="classes" v-click-outside="close">
     <div :class="`${prefix}-wrapper`" @click="toggle">
       <slot>
         <input
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import ClickOutside from '@/directives/click-outside'
 import YCascaderPane from './cascader-pane'
 import YIcon from '@/components/icon/icon'
 import Emitter from '@/mixins/emitter'
@@ -34,10 +35,11 @@ const prefix = 'y-cascader'
 export default {
   name: 'y-cascader',
   mixins: [Emitter],
+  directives: { ClickOutside },
   data () {
     return {
       prefix,
-      visible: false,
+      visible: true,
       currentValue: this.value,
       selected: [],
       // 临时选中项
@@ -76,6 +78,9 @@ export default {
     },
   },
   methods: {
+    close () {
+      this.visible = false
+    },
     toggle () {
       this.visible = !this.visible
     },
@@ -123,13 +128,6 @@ export default {
   watch: {
     currentValue () {
       this.$emit('input', this.currentValue)
-    },
-    visible (val) {
-      if (val) {
-        document.addEventListener('click', this.handleClose)
-      } else {
-        document.removeEventListener('click', this.handleClose)
-      }
     },
   },
 }
