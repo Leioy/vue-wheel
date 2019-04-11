@@ -12,6 +12,7 @@
 <script>
 const prefix = 'y-popover'
 export default {
+  name: prefix,
   data () {
     return {
       visible: false,
