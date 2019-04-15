@@ -1,11 +1,46 @@
+@import '../var.scss';
 .y-button-group {
   display: inline-flex;
   vertical-align: middle;
+  margin: 30px;
   .y-button {
-    border-radius: 0;
-    &:not(first-child) {
-      margin-left: -1px;
+    &-default {
+      border-right-color: lighten($button-default-fill, 10%);
+      &:last-child {
+        border-right-color: transparent;
+      }
     }
+    &-primary {
+      border-right-color: lighten($button-primary-fill, 10%);
+      &:last-child {
+        border-right-color: transparent;
+      }
+    }
+    &-info {
+      border-right-color: lighten($button-info-fill, 10%);
+      &:last-child {
+        border-right-color: transparent;
+      }
+    }
+    &-warning {
+      border-right-color: lighten($button-warning-fill, 10%);
+      &:last-child {
+        border-right-color: transparent;
+      }
+    }
+    &-success {
+      border-right-color: lighten($button-success-fill, 10%);
+      &:last-child {
+        border-right-color: transparent;
+      }
+    }
+    &-error {
+      border-right-color: lighten($button-error-fill, 10%);
+      &:last-child {
+        border-right-color: transparent;
+      }
+    }
+    border-radius: 0;
     &:first-child {
       border-top-left-radius: $border-radius;
       border-bottom-left-radius: $border-radius;
