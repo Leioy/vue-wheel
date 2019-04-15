@@ -83,6 +83,7 @@ export default {
     },
     toggle () {
       this.visible = !this.visible
+      this.$emit('on-visible-change', this.visible)
     },
     handleClose () {
       this.visible = false

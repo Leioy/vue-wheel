@@ -49,6 +49,7 @@
     top: calc(100% + 5px);
     left: 0;
     @extend %box-shadow;
+    background: #fff;
   }
 }
 .y-cascader-pane {
