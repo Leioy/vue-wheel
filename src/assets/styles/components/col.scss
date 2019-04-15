@@ -1,10 +1,4 @@
 .y-col {
-  &:nth-child(odd) {
-    background: rgba(0,153,229,.7);
-  }
-  &:nth-child(even) {
-    background: rgba(0,153,229,.5);
-  }
   $class-prefix: col-;
   @for $i from 1 through 24 {
     &.#{$class-prefix}#{$i} {
@@ -17,7 +11,21 @@
       margin-left: ($i / 24) * 100%;
     }
   }
-  @media (min-width: 577px) {
+  @media (max-width: 575px) {
+    $class-prefix: col-mobile-;
+    @for $i from 1 through 24 {
+      &.#{$class-prefix}#{$i} {
+        width: ($i / 24) * 100%;
+      }
+    }
+    $class-prefix: offset-mobile-;
+    @for $i from 1 through 24 {
+      &.#{$class-prefix}#{$i} {
+        margin-left: ($i / 24) * 100%;
+      }
+    }
+  }
+  @media (min-width: 576px) {
     $class-prefix: col-ipad-;
     @for $i from 1 through 24 {
       &.#{$class-prefix}#{$i} {
