@@ -34,6 +34,7 @@
   display: flex;
   position: relative;
   color: #515a6e;
+  background: #fff;
   &-vertical {
     flex-direction: column;
     transition: height .2s;
@@ -110,6 +111,7 @@
         left: 0;
         margin-top: 5px;
         @extend %box-shadow;
+        background: #fff;
         .y-menu-item {
           padding: 8px 16px;
           line-height: normal;
