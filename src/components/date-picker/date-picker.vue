@@ -71,7 +71,7 @@ export default {
       timeout: null,
       formatedValue: '',
       selectedDate: '',
-      focusdValue: new Date(),
+      focusdValue: '',
     }
   },
   props: {
@@ -117,6 +117,7 @@ export default {
     if (this.value) {
       const [y, m, d] = helper.getYearMonthDate(new Date(this.value))
       this.formatedValue = `${y}-${m + 1}-${d}`
+      this.selectedDate = new Date(this.value)
     }
   },
   methods: {
@@ -146,18 +147,12 @@ export default {
       return this.visibleDate[(row - 1) * 7 + col - 1]
     },
     onClickCell (date) {
-      // const nodeList = document.querySelectorAll('.y-date-picker-cell')
-      // nodeList.forEach((node) => {
-      //   removeClass(node, 'selected')
-      // })
-      // if (!hasClass(e.target)) {
-      //   addClass(e.target, 'selected')
-      // }
       this.selectedDate = date
       this.focusdValue = date
       const value = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
       this.formatedValue = value
       this.$emit('on-change', date, value)
+      this.$emit('input', value)
       this.display.month = date.getMonth()
       this.display.year = date.getFullYear()
       this.dateVisible = false
