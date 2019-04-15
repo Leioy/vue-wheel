@@ -7,6 +7,7 @@
   align-items: center;
   vertical-align: middle;
   padding: 10px 16px;
+  border: 1px solid transparent;
   border-radius: $border-radius;
   font-size: $font-size;
   outline: none;
@@ -34,7 +35,7 @@
   }
   &-default {
     background-color: $button-default-fill;
-    border: none;
+    border-color: $button-default-fill;
     &:hover {
       background-color: darken($button-default-fill,10%);
     }
@@ -42,7 +43,7 @@
   &-primary {
     background-color: $button-primary-fill;
     color: #fff;
-    border: none;
+    border-color: $button-primary-fill;
     &:hover {
       background-color:darken($button-primary-fill,10%);
     }
@@ -50,7 +51,7 @@
   &-warning {
     background-color: $button-warning-fill;
     color: #fff;
-    border: none;
+    border-color: $button-warning-fill;
     &:hover {
       background-color:darken($button-warning-fill,10%);
     }
@@ -58,7 +59,7 @@
   &-error {
     background-color: $button-error-fill;
     color: #fff;
-    border: none;
+    border-color: $button-error-fill;
     &:hover {
       background-color:darken($button-error-fill,10%);
     }
@@ -66,7 +67,7 @@
   &-success {
     background-color: $button-success-fill;
     color: #fff;
-    border: none;
+    border-color: $button-success-fill;
     &:hover {
       background-color:darken($button-success-fill,10%);
     }
@@ -74,7 +75,7 @@
   &-info {
     background-color: $button-info-fill;
     color: #fff;
-    border: none;
+    border-color: $button-info-fill;
     &:hover {
       background-color:darken($button-info-fill,10%);
     }
