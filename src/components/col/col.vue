@@ -19,6 +19,10 @@ export default {
   props: {
     span: [Number, String],
     offset: [Number, String],
+    mobile: {
+      type: Object,
+      validator,
+    },
     ipad: {
       type: Object,
       validator,
@@ -42,10 +46,11 @@ export default {
       return { marginLeft: `${+gutter / 2}px`, marginRight: `${+gutter / 2}px` }
     },
     classObj () {
-      const { span, offset, ipad, narrowPc, pc, widePc } = this
+      const { span, offset, ipad, narrowPc, pc, widePc, mobile } = this
       const createClass = this.createClass
       return [
         ...createClass({ span, offset }),
+        ...createClass(mobile, 'mobile-'),
         ...createClass(ipad, 'ipad-'),
         ...createClass(narrowPc, 'narrowPc-'),
         ...createClass(pc, 'pc-'),
