@@ -1,6 +1,6 @@
 {
   "name": "yyui-vue",
-  "version": "1.0.4",
+  "version": "1.0.7",
   "main": "dist/yui.umd.min.js",
   "private": false,
   "description": "一个UI框架",
@@ -13,7 +13,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test": "vue-cli-service test:unit",
-    "lib":"vue-cli-service build --target lib --name yui src/index.js"
+    "lib": "vue-cli-service build --target lib --name yui src/index.js"
   },
   "dependencies": {
     "vue": "^2.5.17"
