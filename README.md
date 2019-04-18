@@ -1,26 +1,26 @@
-# vue-wheel
+# YUI
 
-## Project setup
-```
-yarn install
-```
+> 本组件库仅供学习交流，请勿在生产环境中使用
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+[官方文档](https://leioy.github.io/vue-wheel-docs/dist/#/)
 
-### Compiles and minifies for production
-```
-yarn run build
+## 安装
+```js
+$ npm install yyui-vue
+$ yarn add yyui-vue
 ```
 
-### Lints and fixes files
+## 使用
+在main.js中如下配置:
+```js
+import Vue from 'Vue'
+import App from 'components/app.vue'
+import Yui from 'yyui-vue'
+import 'yyui-vue/dist/yui.css'
+Vue.use(Yui)
+new Vue({
+  el: '#app',
+  render: h => h(app)
+})
 ```
-yarn run lint
-```
-
-### Run your unit tests
-```
-yarn run test:unit
-```
+如果您觉得还不错，请点个star
