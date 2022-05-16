@@ -39,8 +39,8 @@ export default {
   data () {
     return {
       prefix,
-      visible: true,
-      currentValue: this.value,
+      visible: false,
+      currentValue: this.value || [],
       selected: [],
       // 临时选中项
       tempSelected: [],
